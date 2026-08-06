@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AquariumController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,12 @@ Route::patch('/profile', [ProfileController::class, 'update'])
 Route::delete('/profile', [ProfileController::class, 'destroy'])
     ->middleware(['auth'])
     ->name('profile.destroy');
+
+Route::get('/aquariums', [AquariumController::class, 'index'])
+    ->name('aquariums.index');
+
+Route::get('/aquariums/{aquarium}', [AquariumController::class, 'show'])
+    ->name('aquariums.show');
 
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {

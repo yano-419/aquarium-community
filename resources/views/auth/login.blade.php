@@ -7,7 +7,17 @@
             ログイン
         </h2>
     </div>
+    <div class="flex items-center justify-center my-6">
 
+    <div class="flex-1 h-px bg-sky-200"></div>
+
+    <span class="mx-4 text-2xl">
+        🐟
+    </span>
+
+    <div class="flex-1 h-px bg-sky-200"></div>
+
+</div>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -31,7 +41,7 @@
         </div>
 
         <div class="mt-6">
-            <x-primary-button class="w-full justify-center">
+            <x-primary-button class="w-full flex justify-center py-3">
                 ログイン
             </x-primary-button>
         </div>
@@ -46,4 +56,5 @@
             </a>
         </div>
     </form>
+   </div>
 </x-guest-layout>
