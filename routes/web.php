@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AquariumController;
+use App\Http\Controllers\SpeciesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +34,9 @@ Route::get('/aquariums', [AquariumController::class, 'index'])
 
 Route::get('/aquariums/{aquarium}', [AquariumController::class, 'show'])
     ->name('aquariums.show');
+
+Route::get('/species', [SpeciesController::class, 'index'])
+    ->name('species.index');
 
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {
