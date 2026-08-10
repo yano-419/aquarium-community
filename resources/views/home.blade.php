@@ -162,10 +162,7 @@
     </div>
 
 </div>
-
-   @include('components.bottom-nav')
-
 </div>
-
+ @include('components.bottom-nav')
 </body>
 </html>

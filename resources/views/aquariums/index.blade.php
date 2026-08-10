@@ -69,42 +69,40 @@
  <!-- 水族館カード -->
 <div class="space-y-4 px-3">
 
-   @foreach ($aquariums as $aquarium)
+    @foreach ($aquariums as $aquarium)
 
-<a href="{{ route('aquariums.show', $aquarium->id) }}"
-  class="block bg-white rounded-2xl shadow overflow-hidden">
+    <a href="{{ route('aquariums.show', $aquarium->id) }}" class="block bg-white rounded-2xl shadow overflow-hidden p-3">
 
-    <div class="flex">
+        <div class="flex items-center gap-3">
 
-        <img src="{{ asset($aquarium->image_path) }}"
-            alt="{{ $aquarium->name }}"
-            class="w-28 h-28 object-cover rounded-l-2xl flex-shrink-0"
-        >
+            <img
+                src="{{ asset($aquarium->image_path) }}"
+                alt="{{ $aquarium->name }}"
+                class="w-28 h-28 object-cover rounded-lg flex-shrink-0"
+            >
 
-        <div class="flex-1 p-4">
+            <div class="flex-1">
 
-            <h2 class="font-bold text-xl">
-                {{ $aquarium->name }}
-            </h2>
+                <h2 class="font-bold text-lg">
+                    {{ $aquarium->name }}
+                </h2>
 
-            <p class="text-blue-600 text-sm mt-1">
-                📍 {{ $aquarium->prefecture }}
-            </p>
+                <p class="text-blue-600 text-sm mt-1">
+                    📍 {{ $aquarium->prefecture }}
+                </p>
 
-            <p class="text-gray-600 text-sm mt-2">
-                {{ Str::limit($aquarium->description, 55) }}
-            </p>
-            <div class="flex justify-end mt-3 text-gray-400">
-             >
+                <p class="text-gray-600 text-sm mt-2">
+                    {{ Str::limit($aquarium->description, 35) }}
+                </p>
+
             </div>
 
         </div>
 
-    </div>
+    </a>
 
-</a>
+    @endforeach
 
-@endforeach
 </div>
 @include('components.bottom-nav')
 </div>
