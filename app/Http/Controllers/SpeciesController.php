@@ -6,12 +6,24 @@ use App\Models\Species;
 
 class SpeciesController extends Controller
 {
-    public function index()
-    {
-        $species = Species::all();
+   public function index()
+{
+    $species = Species::query();
 
-        return view('species.index', compact('species'));
+    if (request('keyword')) {
+
+        $species->where(
+            'name',
+            'like',
+            '%' . request('keyword') . '%'
+        );
+
     }
+
+    $species = $species->get();
+
+    return view('species.index', compact('species'));
+}
 
     public function show(Species $species)
     {

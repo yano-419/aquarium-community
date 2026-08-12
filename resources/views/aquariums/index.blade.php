@@ -44,11 +44,17 @@
 
      <div class="bg-white rounded-full shadow-lg p-3">
 
+        <form method="GET">
+
          <input
-            type="text"
-            placeholder="水族館名・エリアで検索"
-            class="w-full outline-none"
+          type="text"
+          name="keyword"
+          value="{{ request('keyword') }}"
+          placeholder="水族館名・エリアで検索"
+          class="w-full outline-none"
          >
+         
+        </form>
 
       </div>
 

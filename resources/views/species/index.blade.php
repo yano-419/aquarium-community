@@ -41,13 +41,22 @@
 
         <div class="bg-white rounded-full shadow-lg p-3">
 
-            <input
-                type="text"
-                placeholder="生き物を検索"
-                class="w-full outline-none"
-            >
+           <form method="GET">
+
+             <input
+              type="text"
+              name="keyword"
+              value="{{ request('keyword') }}"
+              placeholder="生き物を検索"
+              class="w-full outline-none"
+             >
+            
+          </form>
 
         </div>
+             <p class="text-sm text-gray-500 mt-2">
+               {{ $species->count() }}件
+             </p>
 
     </div>
 

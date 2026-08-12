@@ -7,12 +7,42 @@ use App\Models\Aquarium;
 
 class AquariumController extends Controller
 {
-    public function index()
-    {
-        $aquariums = Aquarium::all();
+   public function index()
+{
+    $aquariums = Aquarium::query();
 
-       return view('aquariums.index', compact('aquariums'));
+    if (request('keyword')) {
+
+        $keyword = request('keyword');
+
+        $aquariums->where(function ($query) use ($keyword) {
+
+            $query->where(
+                'name',
+                'like',
+                "%{$keyword}%"
+            )
+            ->orWhere(
+                'prefecture',
+                'like',
+                "%{$keyword}%"
+            )
+            ->orWhere(
+                'address',
+                'like',
+                "%{$keyword}%"
+            );
+
+        });
     }
+
+    $aquariums = $aquariums->get();
+
+    return view(
+        'aquariums.index',
+        compact('aquariums')
+    );
+}
 
     public function show(Aquarium $aquarium)
     {
