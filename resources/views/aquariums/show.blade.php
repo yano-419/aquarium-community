@@ -12,22 +12,32 @@
 <div class="max-w-md mx-auto min-h-screen bg-white">
 
     <!-- ヘッダー -->
-    <div class="bg-gradient-to-r from-blue-800 via-blue-600 to-cyan-500 p-5">
+  <div class="relative h-40 overflow-hidden">
 
-        <div class="flex items-center gap-3">
+    <img src="{{ asset('images/user-header.png') }}"
+        alt="ヘッダー画像"
+        class="w-full h-full object-cover"
+    >
 
-            <a href="{{ route('aquariums.index') }}"
-               class="text-white text-xl">
-                ←
-            </a>
+    <!-- 暗くする -->
+    <div class="absolute inset-0 bg-black/10"></div>
 
-            <h1 class="text-white text-xl font-bold">
-                水族館詳細
-            </h1>
+    <!-- タイトル -->
+    <div class="absolute inset-0 flex items-center justify-between px-4">
 
-        </div>
+        <a href="{{ route('home') }}" class="text-white text-2xl font-bold">
+            ←
+        </a>
+
+        <h1 class="text-white text-2xl font-bold">
+            水族館一覧
+        </h1>
+
+        <div class="w-6"></div>
 
     </div>
+
+</div>
 
     <!-- メイン画像 -->
     <img src="{{ asset($aquarium->image_path) }}"

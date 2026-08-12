@@ -20,7 +20,7 @@
     >
 
     <!-- 暗くする -->
-    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="absolute inset-0 bg-black/10"></div>
 
     <!-- タイトル -->
     <div class="absolute inset-0 flex items-center justify-between px-4">
@@ -78,7 +78,7 @@
             <img
                 src="{{ asset($aquarium->image_path) }}"
                 alt="{{ $aquarium->name }}"
-                class="w-28 h-28 object-cover rounded-lg flex-shrink-0"
+                class="w-30 h-28 object-cover rounded-lg flex-shrink-0"
             >
 
             <div class="flex-1">

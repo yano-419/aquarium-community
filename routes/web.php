@@ -38,6 +38,9 @@ Route::get('/aquariums/{aquarium}', [AquariumController::class, 'show'])
 Route::get('/species', [SpeciesController::class, 'index'])
     ->name('species.index');
 
+Route::get('/species/{species}', [SpeciesController::class, 'show'])
+    ->name('species.show');
+
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

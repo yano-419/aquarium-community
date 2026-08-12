@@ -12,4 +12,9 @@ class SpeciesController extends Controller
 
         return view('species.index', compact('species'));
     }
+
+    public function show(Species $species)
+    {
+        return view('species.show', compact('species'));
+    }
 }

@@ -20,15 +20,19 @@
             class="w-full h-full object-cover"
         >
 
-        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="absolute inset-0 bg-black/10"></div>
 
-        <div class="absolute inset-0 flex items-center justify-center">
+        <div class="absolute inset-0 flex items-center">
 
-            <h1 class="text-white text-2xl font-bold">
-                生き物図鑑
-            </h1>
+              <a href="{{ route('home') }}"class="text-white text-2xl font-bold pl-4">
+               ←
+              </a>
 
-        </div>
+        <h1 class="text-white text-2xl font-bold mx-auto pr-10">
+          生き物図鑑
+        </h1>
+
+</div>
 
     </div>
 
@@ -47,24 +51,28 @@
 
     </div>
 
-    <!-- 図鑑一覧 -->
-    <div class="grid grid-cols-3 gap-3 p-4 mt-4">
+   <!-- 図鑑一覧 -->
+<div class="grid grid-cols-3 gap-3 p-4 mt-4">
 
-        @foreach ($species as $animal)
+    @foreach ($species as $animal)
 
-            <a href="#" class="bg-white rounded-xl shadow p   alt="{{ $animal->name }}"
-                    class="w-full aspect-square object-cover rounded-lg"
-                >
+        <a href="{{ route('species.show', $animal->id) }}" class="bg-white rounded-xl shadow p-2">
 
-                <p class="text-center text-sm font-bold mt-2">
-                    {{ $animal->name }}
-                </p>
+            <img
+                src="{{ asset($animal->image_path) }}"
+                alt="{{ $animal->name }}"
+                class="w-full aspect-square object-cover rounded-lg"
+            >
 
-            </a>
+            <p class="text-center text-xs font-bold mt-2">
+                {{ $animal->name }}
+            </p>
 
-        @endforeach
+        </a>
 
-    </div>
+    @endforeach
+
+</div>
 
 </div>
 
