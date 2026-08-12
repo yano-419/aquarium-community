@@ -78,6 +78,29 @@
                 公式サイトを見る
             </a>
         </div>
+        <div class="mt-6">
+
+         <h3 class="font-bold text-lg mb-3">
+          展示している生き物
+         </h3>
+
+         @forelse ($aquarium->species as $animal)
+
+         <a href="{{ route('species.show', $animal->id) }}" class="block bg-slate-100 rounded-lg p-3 mb-2">
+
+             {{ $animal->name }}
+
+         </a>
+
+         @empty
+
+         <p class="text-gray-500">
+            展示情報はありません
+         </p>
+
+         @endforelse
+
+        </div>
 
     </div>
 

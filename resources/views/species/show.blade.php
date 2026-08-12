@@ -86,9 +86,9 @@
 
               @forelse ($species->aquariums as $aquarium)
 
-              <div class="bg-slate-100 rounded-lg p-3 mb-2">
-               {{ $aquarium->name }}
-             </div>
+              <a href="{{ route('aquariums.show', $aquarium->id) }}" class="block bg-slate-100 rounded-lg p-3 mb-2">
+                {{ $aquarium->name }}   
+              </a>
 
              @empty
 

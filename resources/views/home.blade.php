@@ -41,7 +41,7 @@
 
     <!-- メニュー -->
     <div class="grid grid-cols-2 gap-3 px-3">
-       <a href="/aquariums" class="bg-gradient-to-br from-sky-400 to-blue-500 text-white rounded-3xl p-5 shadow-lg hover:scale-105 transition">
+       <a href="{{ route('aquariums.index') }}" class="bg-gradient-to-br from-sky-400 to-blue-500 text-white rounded-3xl p-5 shadow-lg hover:scale-105 transition">
             <div class="text-4xl text-center mb-3">🏢</div>
             <h3 class="text-xl font-bold text-center">水族館一覧</h3>
             <p class="text-center text-sm mt-2">全国の水族館を探す</p>
@@ -58,42 +58,28 @@
     <div class="mt-6 px-3">
         <div class="flex justify-between items-center mb-3">
             <h2 class="font-bold text-lg">🐟 おすすめの生き物</h2>
-            <a href="#" class="text-blue-500 text-sm">もっと見る </a>
+            <a href="{{ route('species.index') }}" class="text-blue-500 text-sm">もっと見る </a>
         </div>
 
         <div class="flex gap-3 overflow-x-auto pb-2">
 
-            <div class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
-                <img src="{{ asset('images/otter.jpg') }}" alt="ラッコ" class="h-28 w-full object-cover rounded-t-xl">
-                <div class="p-2">
-                    <p class="text-center text-base font-semibold">ラッコ</p>
-                    <div class="text-center text-gray-400 mt-1">♡</div>
-                </div>
-            </div>
+            @foreach ($species as $animal)
 
-            <div class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
-                <img src="{{ asset('images/penguin.jpg') }}" alt="ペンギン" class="h-28 w-full object-cover rounded-t-xl">
-                <div class="p-2">
-                    <p class="text-center text-base font-semibold">ペンギン</p>
-                    <div class="text-center text-gray-400 mt-1">♡</div>
-                </div>
-            </div>
+        <a href="{{ route('species.show', $animal->id) }}" class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
 
-            <div class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
-                <img src="{{ asset('images/whale-shark.jpg') }}" alt="ジンベエザメ" class="h-28 w-full object-cover rounded-t-xl">
-                <div class="p-2">
-                    <p class="text-center text-base font-semibold">ジンベエザメ</p>
-                    <div class="text-center text-gray-400 mt-1">♡</div>
-                </div>
-            </div>
+          <img src="{{ asset($animal->image_path) }}" alt="{{ $animal->name }}" class="h-28 w-full object-cover rounded-t-xl">
 
-            <div class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
-                <img src="{{ asset('images/jellyfish.jpg') }}" alt="ミズクラゲ" class="h-28 w-full object-cover rounded-t-xl">
-                <div class="p-2">
-                    <p class="text-center text-base font-semibold">ミズクラゲ</p>
-                    <div class="text-center text-gray-400 mt-1">♡</div>
-                </div>
-            </div>
+         <div class="p-2">
+
+          <p class="text-center text-base font-semibold">
+            {{ $animal->name }}
+          </p>
+
+         </div>
+
+        </a>
+
+@endforeach
 
         </div>
     </div>
@@ -106,7 +92,7 @@
             ⭐ 人気の水族館
         </h2>
 
-       <a href="#" class="text-blue-500 text-sm">
+       <a href="{{ route('aquariums.index') }}" class="text-blue-500 text-sm">
             もっと見る >
         </a>
     </div>
@@ -114,50 +100,24 @@
     <div class="flex gap-3 overflow-x-auto pb-2">
 
         <!-- 海遊館 -->
-        <div class="min-w-[160px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
+        @foreach ($aquariums as $aquarium)
 
-           <img src="{{ asset('images/kaiyukan.jpg') }}" alt="海遊館"
-                class="h-28 w-full object-cover rounded-t-xl">
+        <a href="{{ route('aquariums.show', $aquarium->id) }}"
+          class="min-w-[160px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
 
-            <div class="p-2">
+            <img src="{{ asset($aquarium->image_path) }}" alt="{{ $aquarium->name }}" class="h-28 w-full object-cover rounded-t-xl">
 
-                <p class="text-base font-semibold text-center">
-                    海遊館
-                </p>
-            </div>
+         <div class="p-2">
+ 
+           <p class="text-base font-semibold text-center">
+             {{ $aquarium->name }}
+           </p>
 
-        </div>
+         </div>
 
-        <!-- 鳥羽水族館 -->
-        <div class="min-w-[160px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
+        </a>
 
-             <img src="{{ asset('images/toba-aquarium.jpg') }}" alt="鳥羽水族館"
-     class="h-28 w-full object-cover rounded-t-xl">
-
-
-            <div class="p-2">
-
-                <p class="text-base font-semibold text-center">
-                    鳥羽水族館
-                </p>
-            </div>
-
-        </div>
-
-        <!-- サンシャイン水族館 -->
-        <div class="min-w-[160px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
-
-            <img src="{{ asset('images/sunshine-aquarium.jpg') }}" alt="サンシャイン水族館"
-                class="h-28 w-full object-cover rounded-t-xl">
-
-            <div class="p-2">
-
-                <p class="text-base font-semibold text-center">
-                    サンシャイン水族館
-                </p>
-            </div>
-
-        </div>
+@endforeach
 
     </div>
 
