@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Aquarium;
 
 class Species extends Model
 {
@@ -14,5 +15,11 @@ class Species extends Model
     'family_name',
     'description',
     'image_path',
-];
+    ];
+
+    public function aquariums()
+    {
+        return $this->belongsToMany(Aquarium::class);
+    }
 }
+

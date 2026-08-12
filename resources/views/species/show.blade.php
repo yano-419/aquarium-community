@@ -56,29 +56,50 @@
              {{ $species->scientific_name }}
            </p>
 
-        <div class="mt-4 space-y-1">
+          <div class="mt-4 space-y-1">
 
-         <p>
-           <span class="font-bold">分類：</span>
-           {{ $species->classification }}
-         </p>
+            <p>
+             <span class="font-bold">分類：</span>
+             {{ $species->classification }}
+            </p>
 
-        <p>
-         <span class="font-bold">目：</span>
-         {{ $species->order_name }}
-        </p>
+            <p>
+             <span class="font-bold">目：</span>
+             {{ $species->order_name }}
+            </p>
 
-        <p>
-         <span class="font-bold">科：</span>
-         {{ $species->family_name }}
-        </p>
+            <p>
+             <span class="font-bold">科：</span>
+             {{ $species->family_name }}
+            </p>
 
-        <p>
-         <span class="font-bold">説明：</span>
-         {{ $species->description }}
-        </p>
+            <p>
+             <span class="font-bold">説明：</span>
+             {{ $species->description }}
+            </p>
 
-        </div>
+            <div class="mt-6">
+
+              <h3 class="font-bold text-lg mb-3">
+               展示している水族館
+              </h3>
+
+              @forelse ($species->aquariums as $aquarium)
+
+              <div class="bg-slate-100 rounded-lg p-3 mb-2">
+               {{ $aquarium->name }}
+             </div>
+
+             @empty
+
+              <p class="text-gray-500">
+               展示情報はありません
+              </p>
+
+             @endforelse
+
+            </div>
+          </div>
 
         </div>
 
