@@ -12,7 +12,7 @@
 <div class="max-w-md mx-auto min-h-screen bg-slate-100 pb-20">
 
     <!-- ヘッダー -->
-    <div class="relative h-40 overflow-hidden">
+    <div class="relative h-32 overflow-hidden">
 
         <img
             src="{{ asset('images/user-header.png') }}"
@@ -48,23 +48,37 @@
 
         <div class="bg-white rounded-2xl shadow mt-4 p-5">
 
-            <h2 class="text-2xl font-bold">
-                {{ $species->name }}
-            </h2>
+           <h2 class="text-2xl font-bold">
+             {{ $species->name }}
+           </h2>
 
-            <p class="text-blue-600 mt-2">
-                分類：{{ $species->classification }}
-            </p>
+           <p class="text-gray-500 italic mt-2">
+             {{ $species->scientific_name }}
+           </p>
 
-            <div class="mt-4">
-                <h3 class="font-bold">
-                    説明
-                </h3>
+        <div class="mt-4 space-y-1">
 
-                <p class="text-gray-700 mt-2 leading-relaxed">
-                    {{ $species->description }}
-                </p>
-            </div>
+         <p>
+           <span class="font-bold">分類：</span>
+           {{ $species->classification }}
+         </p>
+
+        <p>
+         <span class="font-bold">目：</span>
+         {{ $species->order_name }}
+        </p>
+
+        <p>
+         <span class="font-bold">科：</span>
+         {{ $species->family_name }}
+        </p>
+
+        <p>
+         <span class="font-bold">説明：</span>
+         {{ $species->description }}
+        </p>
+
+        </div>
 
         </div>
 

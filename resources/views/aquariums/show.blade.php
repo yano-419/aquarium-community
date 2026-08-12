@@ -12,7 +12,7 @@
 <div class="max-w-md mx-auto min-h-screen bg-white">
 
     <!-- ヘッダー -->
-  <div class="relative h-40 overflow-hidden">
+  <div class="relative h-32 overflow-hidden">
 
     <img src="{{ asset('images/user-header.png') }}"
         alt="ヘッダー画像"
