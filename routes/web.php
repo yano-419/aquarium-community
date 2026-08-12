@@ -8,6 +8,7 @@ use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AquariumController;
 use App\Http\Controllers\SpeciesController;
+use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,6 +41,9 @@ Route::get('/species', [SpeciesController::class, 'index'])
 
 Route::get('/species/{species}', [SpeciesController::class, 'show'])
     ->name('species.show');
+
+Route::get('/posts', [PostController::class, 'index'])
+    ->name('posts.index');
 
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {
