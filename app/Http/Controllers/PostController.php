@@ -50,5 +50,46 @@ class PostController extends Controller
     ]);
 
     return redirect()->route('posts.index');
-}
+     }
+
+     public function destroy(Post $post)
+    {
+    $post->delete();
+
+    return redirect()
+        ->route('posts.index')
+        ->with('success', '投稿を削除しました');
+    }
+
+    public function edit(Post $post)
+ {
+    return view('posts.edit', compact('post'));
+ }
+
+ public function update(Request $request, Post $post)
+ {
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'image' => 'nullable|image|max:2048',
+    ]);
+
+    if ($request->hasFile('image')) {
+
+        $imagePath = $request
+            ->file('image')
+            ->store('posts', 'public');
+
+        $post->image_path = $imagePath;
+    }
+
+    $post->title = $request->title;
+    $post->content = $request->content;
+
+    $post->save();
+
+    return redirect()
+        ->route('posts.show', $post)
+        ->with('success', '投稿を更新しました');
+  }
 }

@@ -17,8 +17,8 @@
     <div class="relative h-32 overflow-hidden">
 
         <img src="{{ asset('images/user-header.png') }}"
-        alt="ヘッダー画像"
-        class="w-full h-full object-cover"
+            alt="ヘッダー画像"
+            class="w-full h-full object-cover"
         >
 
         <div class="absolute inset-0 bg-black/15"></div>
@@ -62,9 +62,9 @@
                     ? asset($post->image_path)
                     : asset('storage/' . $post->image_path)
                 }}"
-                alt="{{ $post->title }}"
-                class="w-full h-64 object-contain rounded-lg mt-4 bg-slate-100"
-            >
+                    alt="{{ $post->title }}"
+                    class="w-full h-64 object-contain rounded-lg mt-4 bg-slate-100"
+                >
 
             @endif
 
@@ -72,78 +72,107 @@
                 💬 {{ $post->comments->count() }}
             </div>
 
-        </div>
+            @if (auth()->id() === $post->user_id)
 
-   </div>
+                <div class="flex justify-end gap-2 mt-4">
 
-<div class="px-4 mt-6">
+                    <a href="{{ route('posts.edit', $post->id) }}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                    >
+                        編集
+                    </a>
 
-    <h3 class="font-bold text-lg mb-3">
-        コメント
-    </h3>
-
-    @foreach ($post->comments as $comment)
-
-        <div class="border-t py-3">
-
-            <div class="flex justify-between items-center">
-
-                <p class="font-bold text-sm">
-                    {{ $comment->user->name }}
-                </p>
-
-                @if (auth()->id() === $comment->user_id)
-
-                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                        onsubmit="return confirm('この投稿を削除しますか？')"
+                    >
                         @csrf
                         @method('DELETE')
 
                         <button
-                         type="submit"
-                         class="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600"
-                         >
-                          削除
+                            type="submit"
+                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                        >
+                            削除
                         </button>
+
                     </form>
 
-                @endif
-
-            </div>
-
-            <p class="text-gray-700 mt-1">
-                {{ $comment->content }}
-            </p>
-
+                </div>
+            @endif
         </div>
-
-    @endforeach
-
-    <div class="fixed bottom-16 left-1/2 -translate-x-1/2 w-full max-w-md bg-slate-100 p-4 border-t">
-
-    <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mb-2">
-    @csrf
-
-    <div class="flex gap-2 items-end">
-
-        <textarea
-            name="content"
-            rows="3"
-            class="flex-1 rounded-lg border p-3"
-            placeholder="コメントを入力してください"
-        ></textarea>
-
-        <button
-            type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        >
-            投稿
-        </button>
 
     </div>
 
-</form>
+    <div class="px-4 mt-6">
 
-</div>
+        <h3 class="font-bold text-lg mb-3">
+            コメント
+        </h3>
+
+        @foreach ($post->comments as $comment)
+
+            <div class="border-t py-3">
+
+                <div class="flex justify-between items-center">
+
+                    <p class="font-bold text-sm">
+                        {{ $comment->user->name }}
+                    </p>
+
+                    @if (auth()->id() === $comment->user_id)
+
+                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600"
+                            >
+                                削除
+                            </button>
+                        </form>
+
+                    @endif
+
+                </div>
+
+                <p class="text-gray-700 mt-1">
+                    {{ $comment->content }}
+                </p>
+
+            </div>
+
+        @endforeach
+
+        <div class="fixed bottom-16 left-1/2 -translate-x-1/2 w-full max-w-md bg-slate-100 p-4 border-t">
+
+            <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mb-2">
+                @csrf
+
+                <div class="flex gap-2 items-end">
+
+                    <textarea
+                        name="content"
+                        rows="3"
+                        class="flex-1 rounded-lg border p-3"
+                        placeholder="コメントを入力してください"
+                    ></textarea>
+
+                    <button
+                        type="submit"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                    >
+                        投稿
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
 
 @include('components.bottom-nav')
 
