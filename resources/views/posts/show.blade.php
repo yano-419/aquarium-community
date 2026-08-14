@@ -25,9 +25,13 @@
 
         <div class="absolute inset-0 flex items-center">
 
-            <a href="{{ route('posts.index') }}" class="text-white text-2xl pl-4">
-                ←
-            </a>
+           <a href="{{ request()->get('from') === 'mypage'
+            ? route('mypage.posts')
+            : route('posts.index')
+           }}"
+           class="text-white text-2xl pl-4">
+           ←
+           </a>
 
             <h1 class="text-white text-2xl font-bold mx-auto pr-10">
                 投稿詳細

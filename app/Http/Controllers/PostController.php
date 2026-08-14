@@ -92,4 +92,14 @@ class PostController extends Controller
         ->route('posts.show', $post)
         ->with('success', '投稿を更新しました');
   }
+
+  public function myPosts()
+  {
+    $posts = auth()->user()
+        ->posts()
+        ->latest()
+        ->get();
+
+    return view('posts.my-posts', compact('posts'));
+  }
 }

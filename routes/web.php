@@ -70,6 +70,17 @@ Route::post('/posts/{post}/comments', [CommentController::class, 'store'])
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->name('comments.destroy');
 
+Route::middleware('auth')->group(function () {
+
+Route::get('/mypage', function () {
+        return view('mypage');
+    })->name('mypage');
+
+Route::get('/mypage/posts', [PostController::class, 'myPosts'])
+    ->middleware('auth')
+    ->name('mypage.posts');
+    
+});
 
 
 // 一般ユーザー（ログイン済みなら誰でも）
