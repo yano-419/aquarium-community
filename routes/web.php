@@ -10,6 +10,7 @@ use App\Http\Controllers\AquariumController;
 use App\Http\Controllers\SpeciesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,7 +80,17 @@ Route::get('/mypage', function () {
 Route::get('/mypage/posts', [PostController::class, 'myPosts'])
     ->middleware('auth')
     ->name('mypage.posts');
+
+Route::get('/mypage/favorites', [FavoriteController::class, 'index'])
+    ->middleware('auth')
+    ->name('mypage.favorites');
+
     
+Route::post('/species/{species}/favorite', [FavoriteController::class, 'store'])
+    ->name('favorites.store');
+
+Route::delete('/species/{species}/favorite', [FavoriteController::class, 'destroy'])
+    ->name('favorites.destroy');
 });
 
 

@@ -25,7 +25,7 @@
     <!-- タイトル -->
     <div class="absolute inset-0 flex items-center justify-between px-4">
 
-        <a href="{{ route('home') }}" class="text-white text-2xl font-bold">
+        <a href="{{ route('aquariums.index') }}" class="text-white text-2xl font-bold">
             ←
         </a>
 
