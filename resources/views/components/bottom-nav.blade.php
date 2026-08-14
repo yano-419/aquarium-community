@@ -22,7 +22,7 @@
              </div>
         </a>
 
-        <a href="#" class="text-gray-500 text-center">
+        <a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'text-blue-600' : 'text-gray-500' }} text-center">
             <img src="{{ asset('images/icons/post.png') }}"alt="投稿"class="w-6 h-6 mx-auto">
             <div class="text-[11px] mt-1">
                 投稿

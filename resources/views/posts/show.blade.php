@@ -8,8 +8,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-
-<div class="max-w-md mx-auto min-h-screen bg-slate-100 pb-20">
+@php
+    use Illuminate\Support\Str;
+@endphp
+<div class="max-w-md mx-auto min-h-screen bg-slate-100 pb-44">
 
     <!-- ヘッダー -->
     <div class="relative h-32 overflow-hidden">
@@ -53,17 +55,93 @@
                 {{ $post->content }}
             </p>
 
-             <img src="{{ asset($post->image_path) }}"
-                 alt="{{ $post->title }}"
-                 class="w-full h-52 object-cover rounded-lg mt-4">
+            @if ($post->image_path)
+
+                <img src="{{ 
+                Str::startsWith($post->image_path, 'images/')
+                    ? asset($post->image_path)
+                    : asset('storage/' . $post->image_path)
+                }}"
+                alt="{{ $post->title }}"
+                class="w-full h-64 object-contain rounded-lg mt-4 bg-slate-100"
+            >
+
+            @endif
 
             <div class="mt-4 text-gray-500">
-                💬 3
+                💬 {{ $post->comments->count() }}
             </div>
 
         </div>
 
+   </div>
+
+<div class="px-4 mt-6">
+
+    <h3 class="font-bold text-lg mb-3">
+        コメント
+    </h3>
+
+    @foreach ($post->comments as $comment)
+
+        <div class="border-t py-3">
+
+            <div class="flex justify-between items-center">
+
+                <p class="font-bold text-sm">
+                    {{ $comment->user->name }}
+                </p>
+
+                @if (auth()->id() === $comment->user_id)
+
+                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                         type="submit"
+                         class="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600"
+                         >
+                          削除
+                        </button>
+                    </form>
+
+                @endif
+
+            </div>
+
+            <p class="text-gray-700 mt-1">
+                {{ $comment->content }}
+            </p>
+
+        </div>
+
+    @endforeach
+
+    <div class="fixed bottom-16 left-1/2 -translate-x-1/2 w-full max-w-md bg-slate-100 p-4 border-t">
+
+    <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mb-2">
+    @csrf
+
+    <div class="flex gap-2 items-end">
+
+        <textarea
+            name="content"
+            rows="3"
+            class="flex-1 rounded-lg border p-3"
+            placeholder="コメントを入力してください"
+        ></textarea>
+
+        <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+            投稿
+        </button>
+
     </div>
+
+</form>
 
 </div>
 

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="max-w-md mx-auto min-h-screen bg-slate-100 pb-20">
+<div class="max-w-md mx-auto min-h-screen bg-slate-100 pb-20 relative">
 
     <div class="relative h-32 overflow-hidden">
 
@@ -37,7 +37,7 @@
 
         @foreach ($posts as $post)
 
-            <a href="{{ route('posts.show', $post) }}">
+            <a href="{{ route('posts.show', $post) }}" class="block">
 
                 <div class="bg-white rounded-xl p-4 border">
 
@@ -61,15 +61,21 @@
                    {{ $post->content }}
                 </p>
 
-                 <img src="{{ asset($post->image_path) }}"
-                     alt="{{ $post->title }}"
-                     class="w-full h-48 object-cover rounded-lg mt-3"
-                 >
+                @if ($post->image_path)
+
+                 <img src="{{\Illuminate\Support\Str::startsWith($post->image_path, 'images/')
+                 ? asset($post->image_path)
+                 : asset('storage/' . $post->image_path)
+                 }}"
+                 alt="{{ $post->title }}"
+                 class="w-full h-48 object-cover rounded-lg mt-3"
+                >
+               @endif
 
                  <div class="mt-3 text-gray-500">
-                  💬 3
+                  💬 {{ $post->comments->count() }}
                  </div>
-                </p>
+            
 
             </div>
           </a>
@@ -77,6 +83,14 @@
 
     </div>
 
+
+
+  <a
+    href="{{ route('posts.create') }}" class="fixed bottom-24 w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center text-3xl shadow-lg z-50"
+    style="right: calc(50% - 180px);"
+  >
+    +
+  </a>
 </div>
 
 @include('components.bottom-nav')

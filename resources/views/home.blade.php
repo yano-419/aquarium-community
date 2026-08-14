@@ -47,7 +47,7 @@
             <p class="text-center text-sm mt-2">全国の水族館を探す</p>
         </a>
 
-        <a href="#" class="bg-gradient-to-br from-sky-400 to-blue-500 text-white rounded-3xl p-5 shadow-lg hover:scale-105 transition">
+        <a href="{{ route('posts.index') }}" class="bg-gradient-to-br from-sky-400 to-blue-500 text-white rounded-3xl p-5 shadow-lg hover:scale-105 transition">
             <div class="text-4xl text-center mb-3">👥</div>
             <h3 class="text-xl font-bold text-center">みんなの投稿</h3>
             <p class="text-center text-sm mt-2">みんなの投稿を見る</p>
@@ -99,7 +99,6 @@
 
     <div class="flex gap-3 overflow-x-auto pb-2">
 
-        <!-- 海遊館 -->
         @foreach ($aquariums as $aquarium)
 
         <a href="{{ route('aquariums.show', $aquarium->id) }}"
