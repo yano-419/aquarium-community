@@ -13,14 +13,15 @@
 
     <div class="relative h-32 overflow-hidden">
 
-        <img src="{{ asset('images/header.png') }}"
-             class="w-full h-full object-cover">
-
+        <img src="{{ asset('images/user-header.png') }}"
+        alt="ヘッダー画像"
+        class="w-full h-full object-cover"
+        >
         <div class="absolute inset-0 bg-black/15"></div>
 
         <div class="absolute inset-0 flex items-center">
 
-            {{ route('home') }} text-2xl pl-4">
+            <a href="{{ route('home') }}" class="text-white text-2xl pl-4">
                 ←
             </a>
 
@@ -36,9 +37,11 @@
 
         @foreach ($posts as $post)
 
-            <div class="bg-white rounded-xl shadow p-4">
+            <a href="{{ route('posts.show', $post) }}">
 
-                <div class="flex items-center gap-2 text-sm text-gray-500">
+                <div class="bg-white rounded-xl p-4 border">
+
+                <div class="flex items-center gap-2 text-xs text-gray-500">
 
                     <span>
                         {{ $post->user->name }}
@@ -51,15 +54,25 @@
                 </div>
 
                 <h2 class="font-bold text-lg mt-2">
-                    {{ $post->title }}
+                 {{ $post->title }}
                 </h2>
 
                 <p class="mt-2 text-gray-700">
-                    {{ $post->content }}
+                   {{ $post->content }}
+                </p>
+
+                 <img src="{{ asset($post->image_path) }}"
+                     alt="{{ $post->title }}"
+                     class="w-full h-48 object-cover rounded-lg mt-3"
+                 >
+
+                 <div class="mt-3 text-gray-500">
+                  💬 3
+                 </div>
                 </p>
 
             </div>
-
+          </a>
         @endforeach
 
     </div>

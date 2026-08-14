@@ -44,6 +44,9 @@ Route::get('/species/{species}', [SpeciesController::class, 'show'])
 
 Route::get('/posts', [PostController::class, 'index'])
     ->name('posts.index');
+    
+Route::get('/posts/{post}', [PostController::class, 'show'])
+    ->name('posts.show');
 
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {
