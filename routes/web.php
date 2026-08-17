@@ -110,6 +110,22 @@ Route::get(
     '/aquariums/{aquarium}/areas',
     [AreaController::class, 'index']
     )->name('areas.index');
+
+Route::get(
+    '/species/{species}/aquariums',
+    [SpeciesController::class, 'aquariums']
+)->name('species.aquariums');
+
+Route::get(
+    '/species/{species}/areas',
+    [SpeciesController::class, 'areas']
+)->name('species.areas');
+
+Route::get(
+    '/aquariums/{aquarium}/species',
+    [AquariumController::class, 'species']
+)->name('aquarium.species');
+
 });
 
 // 一般ユーザー（ログイン済みなら誰でも）

@@ -30,7 +30,7 @@
         </a>
 
         <h1 class="text-white text-2xl font-bold">
-            水族館一覧
+            水族館詳細
         </h1>
 
         <div class="w-6"></div>
@@ -95,7 +95,12 @@
 
 @forelse ($aquarium->areas->take(3) as $area)
 
- <a href="{{ route('areas.show', $area->id) }}" class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
+  <a href="{{ route('areas.show', [
+        'area' => $area->id,
+        'from' => 'aquarium',
+        'aquarium' => $aquarium->id
+    ]) }}"
+       class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
 
     <img src="{{ asset($area->image_path) }}"
         alt="{{ $area->name }}"
@@ -126,13 +131,29 @@
 
         <div class="mt-6">
 
-         <h3 class="font-bold text-lg mb-3">
-          展示している生き物
-         </h3>
+        <div class="flex justify-between items-center mb-3">
 
-        @forelse ($aquarium->species->take(3) as $animal)
+    <h3 class="font-bold text-lg">
+        展示している生き物
+    </h3>
 
-     <a href="{{ route('species.show', $animal->id) }}" class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
+    <a href="{{ route('aquarium.species', $aquarium->id) }}"
+        class="text-blue-500 text-sm"
+    >
+        もっと見る >
+    </a>
+
+</div>
+
+       @forelse ($aquarium->species->take(3) as $animal)
+
+    <a href="{{ route('species.show', [
+        'species' => $animal->id,
+        'from' => 'aquarium',
+        'aquarium' => $aquarium->id
+    ]) }}"
+   class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3"
+>
 
         <img src="{{ asset($animal->image_path) }}"
             alt="{{ $animal->name }}"

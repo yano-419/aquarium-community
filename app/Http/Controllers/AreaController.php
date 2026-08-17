@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Aquarium;
-
 use App\Models\Area;
 
 class AreaController extends Controller

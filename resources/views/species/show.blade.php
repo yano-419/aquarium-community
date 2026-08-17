@@ -22,24 +22,30 @@
 
         <div class="absolute inset-0 bg-black/15"></div>
 
-        <div class="absolute inset-0 flex items-center">
+      <div class="absolute inset-0 flex items-center">
 
-             <a
-    href="{{ request()->input('from') === 'favorites'
-        ? route('mypage.favorites')
-        : route('species.index')
+    <a href="{{ 
+        request()->query('from') === 'favorites'
+            ? route('mypage.favorites')
+            : (
+                request()->query('from') === 'aquarium-species'
+                    ? route('aquarium.species', request()->query('aquarium'))
+                    : (
+                        request()->query('from') === 'aquarium'
+                            ? route('aquariums.show', request()->query('aquarium'))
+                            : route('species.index')
+                    )
+            )
     }}"
-    class="text-white text-2xl pl-4"
->
-    ←
-</a>
+    class="text-white text-2xl pl-4">
+        ←
+    </a>
 
-            <h1 class="text-white text-2xl font-bold mx-auto pr-10">
-                生き物詳細
-            </h1>
+    <h1 class="text-white text-2xl font-bold mx-auto pr-10">
+        生き物詳細
+    </h1>
 
-        </div>
-
+</div>
     </div>
 
     <!-- 本体 -->
@@ -139,26 +145,103 @@
             <!-- 展示している水族館 -->
             <div class="mt-6">
 
-                <h3 class="font-bold text-lg mb-3">
-                    展示している水族館
+               <div class="flex justify-between items-center mb-3">
+
+    <h3 class="font-bold text-lg">
+        展示している水族館
+    </h3>
+
+    <a href="{{ route('species.aquariums', $species->id) }}"
+        class="text-blue-500 text-sm"
+    >
+        もっと見る >
+    </a>
+
+</div>
+
+     @forelse ($species->aquariums->take(3) as $aquarium)
+
+    
+        <a href="{{ route('aquariums.show', $aquarium->id) }}"
+        class="flex items-center gap-3 bg-slate-100 rounded-xl p-3 mb-3"
+    >
+
+          <img
+            src="{{ asset($aquarium->image_path) }}"
+            alt="{{ $aquarium->name }}"
+            class="w-20 h-20 object-cover rounded-lg"
+        >
+
+        <div class="flex-1">
+
+            <h3 class="font-bold">
+                {{ $aquarium->name }}
+            </h3>
+
+            <p class="text-sm text-gray-500 mt-1">
+                📍 {{ $aquarium->prefecture }}
+            </p>
+
+        </div>
+
+    </a>
+
+@empty
+
+    <p class="text-gray-500">
+        展示情報はありません
+    </p>
+
+@endforelse
+<div class="mt-6">
+
+    <div class="flex justify-between items-center mb-3">
+
+        <h3 class="font-bold text-lg">
+            展示エリア
+        </h3>
+
+        <a href="{{ route('species.areas', $species->id) }}"
+           class="text-blue-500 text-sm">
+            もっと見る >
+        </a>
+
+    </div>
+
+    @forelse ($species->areas->take(2) as $area)
+
+        <a href="{{ route('areas.show', $area->id) }}"
+           class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
+
+            <img
+                src="{{ asset($area->image_path) }}"
+                alt="{{ $area->name }}"
+                class="w-20 h-20 object-cover rounded-lg"
+            >
+
+            <div class="flex-1">
+
+                <h3 class="font-bold">
+                    {{ $area->name }}
                 </h3>
 
-                @forelse ($species->aquariums as $aquarium)
+                <p class="text-sm text-gray-500 mt-1">
+                    {{ $area->description }}
+                </p>
 
-                    <a
-                        href="{{ route('aquariums.show', $aquarium->id) }}"
-                        class="block bg-white rounded-lg p-3 mb-2 hover:bg-slate-200"
-                    >
-                        {{ $aquarium->name }}
-                    </a>
+            </div>
 
-                @empty
+        </a>
 
-                    <p class="text-gray-500">
-                        展示情報はありません
-                    </p>
+    @empty
 
-                @endforelse
+        <p class="text-gray-500">
+            展示エリア情報はありません
+        </p>
+
+    @endforelse
+
+</div>
 
             </div>
 

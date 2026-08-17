@@ -8,14 +8,14 @@
             </div>
         </a>
 
-        <a href="{{ route('aquariums.index') }}" class="{{ request()->routeIs('aquariums.*') ? 'text-blue-600' : 'text-gray-500' }} text-center">
+        <a href="{{ route('aquariums.index') }}" class="{{ request()->routeIs('aquariums.*', 'areas.*') ? 'text-blue-600' : 'text-gray-500' }} text-center">
             <img src="{{ asset('images/icons/aquarium.png') }}" alt="水族館" class="w-6 h-6 mx-auto">
             <div class="text-[11px] mt-1">
              水族館
             </div>
         </a>
 
-        <a href="{{ route('species.index') }}" class="{{ request()->routeIs('species.*') ? 'text-blue-600' : 'text-gray-500' }}">
+        <a href="{{ route('species.index') }}" class="{{ request()->routeIs('species.*', 'species.aquariums') ? 'text-blue-600' : 'text-gray-500' }}">
             <img src="{{ asset('images/icons/encyclopedia.png') }}"alt="図鑑"class="w-6 h-6 mx-auto">
              <div class="text-[11px] mt-1">
                図鑑

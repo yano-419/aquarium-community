@@ -24,9 +24,14 @@
         <div class="absolute inset-0 flex items-center justify-between px-4">
 
           <a href="{{ request()->input('from') === 'index'
-    ? route('areas.index', $area->aquarium_id)
-    : route('aquariums.show', $area->aquarium_id) }}"
-   class="text-white text-2xl font-bold">
+        ? route('areas.index', $area->aquarium_id)
+        : (
+            request()->input('from') === 'species-areas'
+                ? route('species.areas', $area->species->first()->id)
+                : route('aquariums.show', $area->aquarium_id)
+        )
+}}"
+class="text-white text-2xl font-bold">
     ←
 </a>
             <h1 class="text-white text-2xl font-bold">
