@@ -25,13 +25,14 @@
         <div class="absolute inset-0 flex items-center">
 
              <a
-                href="{{ request()->input('from') === 'favorites'
-                    ? route('mypage.favorites')
-                    : route('species.index') }}"
-                class="text-white text-2xl pl-4"
-            >
-                ←
-            </a>
+    href="{{ request()->input('from') === 'favorites'
+        ? route('mypage.favorites')
+        : route('species.index')
+    }}"
+    class="text-white text-2xl pl-4"
+>
+    ←
+</a>
 
             <h1 class="text-white text-2xl font-bold mx-auto pr-10">
                 生き物詳細
@@ -146,7 +147,7 @@
 
                     <a
                         href="{{ route('aquariums.show', $aquarium->id) }}"
-                        class="block bg-slate-100 rounded-lg p-3 mb-2 hover:bg-slate-200"
+                        class="block bg-white rounded-lg p-3 mb-2 hover:bg-slate-200"
                     >
                         {{ $aquarium->name }}
                     </a>

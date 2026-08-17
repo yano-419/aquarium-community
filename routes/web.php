@@ -11,6 +11,7 @@ use App\Http\Controllers\SpeciesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\AreaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -93,14 +94,23 @@ Route::get('/mypage/favorites', [FavoriteController::class, 'index'])
     ->middleware('auth')
     ->name('mypage.favorites');
 
-    
 Route::post('/species/{species}/favorite', [FavoriteController::class, 'store'])
     ->name('favorites.store');
 
 Route::delete('/species/{species}/favorite', [FavoriteController::class, 'destroy'])
     ->name('favorites.destroy');
-});
 
+Route::get('/areas/{area}', [AreaController::class, 'show'])
+    ->name('areas.show');
+
+Route::get('/areas/{area}', [AreaController::class, 'show'])
+    ->name('areas.show');
+
+Route::get(
+    '/aquariums/{aquarium}/areas',
+    [AreaController::class, 'index']
+    )->name('areas.index');
+});
 
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {

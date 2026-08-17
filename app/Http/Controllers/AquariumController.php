@@ -46,6 +46,11 @@ class AquariumController extends Controller
 
     public function show(Aquarium $aquarium)
     {
-        return view('aquariums.show', compact('aquarium'));
+    $aquarium->load([
+        'species',
+        'areas',
+    ]);
+
+    return view('aquariums.show', compact('aquarium'));
     }
 }

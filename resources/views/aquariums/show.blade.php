@@ -9,7 +9,7 @@
 </head>
 <body class="bg-slate-100">
 
-<div class="max-w-md mx-auto min-h-screen bg-white">
+<div class="max-w-md mx-auto min-h-screen bg-white pb-24">
 
     <!-- ヘッダー -->
   <div class="relative h-32 overflow-hidden">
@@ -78,27 +78,88 @@
                 公式サイトを見る
             </a>
         </div>
+
+        <div class="flex justify-between items-center mt-6 mb-3">
+
+    <h2 class="font-bold text-lg">
+        展示エリア
+    </h2>
+
+    <a href="{{ route('areas.index', $aquarium->id) }}"
+        class="text-blue-500 text-sm"
+    >
+        もっと見る >
+    </a>
+
+</div>
+
+@forelse ($aquarium->areas->take(3) as $area)
+
+ <a href="{{ route('areas.show', $area->id) }}" class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
+
+    <img src="{{ asset($area->image_path) }}"
+        alt="{{ $area->name }}"
+        class="w-24 h-20 object-cover rounded-lg"
+    >
+
+    <div class="flex-1">
+
+        <h3 class="font-bold">
+            {{ $area->name }}
+        </h3>
+
+        <p class="text-sm text-gray-500 mt-1">
+            {{ $area->description }}
+        </p>
+
+    </div>
+
+</a>
+
+@empty
+
+<p class="text-gray-500">
+    展示エリア情報はありません
+</p>
+
+@endforelse
+
         <div class="mt-6">
 
          <h3 class="font-bold text-lg mb-3">
           展示している生き物
          </h3>
 
-         @forelse ($aquarium->species as $animal)
+        @forelse ($aquarium->species->take(3) as $animal)
 
-         <a href="{{ route('species.show', $animal->id) }}" class="block bg-slate-100 rounded-lg p-3 mb-2">
+     <a href="{{ route('species.show', $animal->id) }}" class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
 
-             {{ $animal->name }}
+        <img src="{{ asset($animal->image_path) }}"
+            alt="{{ $animal->name }}"
+            class="w-20 h-20 object-cover rounded-lg"
+        >
 
-         </a>
+        <div class="flex-1">
 
-         @empty
+            <h3 class="font-bold">
+                {{ $animal->name }}
+            </h3>
 
-         <p class="text-gray-500">
-            展示情報はありません
-         </p>
+            <p class="text-sm text-gray-500 mt-1">
+                {{ $animal->classification }}
+            </p>
 
-         @endforelse
+        </div>
+
+    </a>
+
+@empty
+
+    <p class="text-gray-500">
+        展示情報はありません
+    </p>
+
+@endforelse
 
         </div>
 

@@ -22,6 +22,11 @@ class Aquarium extends Model
     {
         return $this->belongsToMany(Species::class);
     }
+
+    public function areas()
+    {
+    return $this->hasMany(Area::class);
+    }
 }
 
 
