@@ -71,6 +71,14 @@ Route::post('/posts/{post}/comments', [CommentController::class, 'store'])
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->name('comments.destroy');
 
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])
+    ->middleware('auth')
+    ->name('comments.edit');
+
+Route::put('/comments/{comment}', [CommentController::class, 'update'])
+    ->middleware('auth')
+    ->name('comments.update');
+
 Route::middleware('auth')->group(function () {
 
 Route::get('/mypage', function () {

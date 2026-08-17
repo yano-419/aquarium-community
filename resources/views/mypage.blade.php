@@ -24,8 +24,10 @@
 
         <div class="absolute inset-0 flex items-center">
 
-            <a href="{{ route('home') }}"
-                class="text-white text-2xl font-bold pl-4">
+            <a
+                href="{{ route('home') }}"
+                class="text-white text-2xl font-bold pl-4"
+            >
                 ←
             </a>
 
@@ -61,18 +63,19 @@
         <!-- 投稿数 -->
         <a href="{{ route('mypage.posts') }}" class="block bg-white rounded-xl p-4 shadow">
 
-    <h2 class="font-bold text-lg mb-2">
-        投稿数
-    </h2>
+            <h2 class="font-bold text-lg mb-2">
+                投稿数
+            </h2>
 
-    <p class="text-3xl font-bold text-blue-500">
-        {{ Auth::user()->posts->count() }} 件
-    </p>
+            <p class="text-3xl font-bold text-blue-500">
+                {{ Auth::user()->posts->count() }} 件
+            </p>
 
-</a>
+        </a>
 
         <!-- お気に入り数 -->
         <a href="{{ route('mypage.favorites') }}" class="block bg-white rounded-xl p-4 shadow">
+
             <h2 class="font-bold text-lg mb-2">
                 お気に入り数
             </h2>
@@ -81,61 +84,64 @@
                 {{ Auth::user()->favorites->count() }} 件
             </p>
 
-  </a>
+        </a>
 
         <!-- お気に入り生き物一覧 -->
-        <div class="flex justify-between items-center mb-4">
+        <div class="bg-white rounded-xl p-4 shadow">
 
-    <h2 class="font-bold text-lg">
-        お気に入り生き物一覧
-    </h2>
+            <div class="flex justify-between items-center mb-4">
 
-      <a href="{{ route('mypage.favorites') }}"
-        class="text-blue-500 text-sm"
-    >
-        もっと見る >
-    </a>
+                <h2 class="font-bold text-lg">
+                    お気に入り生き物一覧
+                </h2>
 
-</div>
+                <a href="{{ route('mypage.favorites') }}"
+                    class="text-blue-500 text-sm"
+                >
+                    もっと見る >
+                </a>
 
-    <div class="flex gap-3 overflow-x-auto">
+            </div>
 
-        @forelse(
-    Auth::user()->favorites
-        ->shuffle()
-        ->take(4)
-    as $favorite
-)
+           <div class="grid grid-cols-4 gap-2">
+
+    @forelse(
+        Auth::user()->favorites
+            ->shuffle()
+            ->take(4)
+        as $favorite
+    )
 
             <a href="{{ route('species.show', [
                 'species' => $favorite->species->id,
-                'from' => 'mypage'
-            ]) }}" class="min-w-[87px]"
->
+                'from' => 'favorites'
+            ]) }}"
+            class="bg-white rounded-xl shadow p-2"
+            >
 
-     <img
-        src="{{ asset($favorite->species->image_path) }}"
-        alt="{{ $favorite->species->name }}"
-        class="w-20 h-20 object-cover rounded-lg mx-auto"
-    >
+            <img
+                src="{{ asset($favorite->species->image_path) }}"
+                alt="{{ $favorite->species->name }}"
+                class="w-20 h-20 object-cover rounded-lg mx-auto"
+            >
 
-    <p class="text-xs text-center mt-2 font-medium">
-        {{ $favorite->species->name }}
-    </p>
-
-</a>
-
-        @empty
-
-            <p class="text-gray-500">
-                お気に入りの生き物はありません
+            <p class="text-xs text-center mt-2 font-medium">
+                {{ $favorite->species->name }}
             </p>
 
-        @endforelse
+        </a>
 
-    </div>
+    @empty
+
+        <p class="col-span-4 text-gray-500">
+            お気に入りの生き物はありません
+        </p>
+
+    @endforelse
 
 </div>
+
+        </div>
 
         <!-- 自分の投稿一覧 -->
         <div class="bg-white rounded-xl p-4 shadow">
@@ -146,23 +152,36 @@
                     自分の投稿一覧
                 </h2>
 
-                <a href="{{ route('mypage.posts') }}" class="text-blue-500 text-sm whitespace-nowrap">
+                <a href="{{ route('mypage.posts') }}"
+                    class="text-blue-500 text-sm whitespace-nowrap"
+                >
                     もっと見る >
                 </a>
 
             </div>
 
-            @forelse(Auth::user()->posts->sortByDesc('created_at')->take(3) as $post)
+            @forelse(
+                Auth::user()->posts
+                    ->sortByDesc('created_at')
+                    ->take(3)
+                as $post
+            )
 
-                <a href="{{ route('posts.show', ['post' => $post->id, 'from' => 'mypage']) }}"
-                    class="flex items-center gap-3 border-b py-3">
+                    <a href="{{ route('posts.show', [
+                        'post' => $post->id,
+                        'from' => 'mypage'
+                    ]) }}"
+                    class="flex items-center gap-3 border-b py-3"
+                >
 
                     @if ($post->image_path)
-                        <img src="{{  
-                                Str::startsWith($post->image_path, 'images/')
+
+                        <img
+                            src="{{ 
+                                \Str::startsWith($post->image_path, 'images/')
                                     ? asset($post->image_path)
                                     : asset('storage/' . $post->image_path)
-                                }}"
+                            }}"
                             alt="{{ $post->title }}"
                             class="w-14 h-14 object-cover rounded-lg"
                         >
@@ -211,16 +230,15 @@
                 </div>
 
                 <form action="{{ route('logout') }}" method="POST">
-                    @csrf
+    @csrf
 
-                    <button
-                        type="submit"
-                        class="border border-red-500 text-red-500 px-4 py-2 rounded-lg hover:bg-red-50"
-                    >
-                        ログアウト
-                    </button>
-
-                </form>
+    <button
+        type="submit"
+        class="border border-red-500 text-red-500 px-4 py-2 rounded-lg hover:bg-red-50"
+    >
+        ログアウト
+    </button>
+</form>
 
             </div>
 

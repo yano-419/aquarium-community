@@ -29,7 +29,7 @@
             </div>
         </a>
 
-        <a href="{{ route('mypage') }}" class="{{ request()->routeIs('mypage') ? 'text-blue-600' : 'text-gray-500' }} text-center">
+        <a href="{{ route('mypage') }}" class="{{ request()->routeIs('mypage', 'mypage.*') ? 'text-blue-600' : 'text-gray-500' }} text-center">
             <img src="{{ asset('images/icons/mypage.png') }}" alt="マイページ" class="w-6 h-6 mx-auto">
             <div class="text-[11px] mt-1">
                 マイページ

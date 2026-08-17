@@ -25,4 +25,30 @@ class CommentController extends Controller
 
         return back();
     }
+
+    public function edit(Comment $comment)
+{
+    if ($comment->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    return view('comments.edit', compact('comment'));
+}
+
+    public function update(Request $request, Comment $comment)
+    {
+        if ($comment->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'content' => 'required|string|max:255',
+        ]);
+
+        $comment->update([
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('posts.show', $comment->post_id);
+    }
 }

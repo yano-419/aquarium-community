@@ -123,21 +123,31 @@
                         {{ $comment->user->name }}
                     </p>
 
-                    @if (auth()->id() === $comment->user_id)
+                   @if (auth()->id() === $comment->user_id)
 
-                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+    <div class="flex gap-2">
 
-                            <button
-                                type="submit"
-                                class="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600"
-                            >
-                                削除
-                            </button>
-                        </form>
+        <a href="{{ route('comments.edit', $comment->id) }}"
+            class="bg-blue-500 text-white text-xs px-3 py-1 rounded"
+        >
+            編集
+        </a>
 
-                    @endif
+        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+
+            <button
+                type="submit"
+                class="bg-red-500 text-white text-xs px-3 py-1 rounded"
+            >
+                削除
+            </button>
+        </form>
+
+    </div>
+
+@endif
 
                 </div>
 
