@@ -27,6 +27,8 @@
  @php
     if (request()->query('from') === 'favorites') {
         $backUrl = route('mypage.favorites');
+    } elseif (request()->query('from') === 'home') {
+    $backUrl = route('home');
     } elseif (request()->query('from') === 'aquarium-species') {
         $backUrl = route('aquarium.species', request()->query('aquarium'));
     } elseif (request()->query('from') === 'area-species') {

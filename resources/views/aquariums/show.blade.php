@@ -25,9 +25,14 @@
     <!-- タイトル -->
     <div class="absolute inset-0 flex items-center justify-between px-4">
 
-        <a href="{{ route('aquariums.index') }}" class="text-white text-2xl font-bold">
-            ←
-        </a>
+        <a href="{{ 
+        request()->query('from') === 'home'
+        ? route('home')
+        : route('aquariums.index')
+        }}"
+        class="text-white text-2xl font-bold">
+        ←
+       </a>
 
         <h1 class="text-white text-2xl font-bold">
             水族館詳細

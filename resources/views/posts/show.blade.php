@@ -86,20 +86,13 @@
                         編集
                     </a>
 
-                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
-                        onsubmit="return confirm('この投稿を削除しますか？')"
-                    >
-                        @csrf
-                        @method('DELETE')
-
-                        <button
-                            type="submit"
-                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                        >
-                            削除
-                        </button>
-
-                    </form>
+                    <button
+                      type="button"
+                      onclick="openDeleteModal()"
+                      class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                     >
+                        削除
+                   </button> 
 
                 </div>
             @endif
@@ -133,17 +126,13 @@
             編集
         </a>
 
-        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-
-            <button
-                type="submit"
-                class="bg-red-500 text-white text-xs px-3 py-1 rounded"
-            >
-                削除
-            </button>
-        </form>
+        <button
+          type="button"
+          onclick="openCommentDeleteModal({{ $comment->id }})"
+          class="bg-red-500 text-white text-xs px-3 py-1 rounded"
+         >
+         削除
+        </button>
 
     </div>
 
@@ -187,8 +176,126 @@
         </div>
 
     </div>
+<div
+    id="deleteModal"
+    class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50"
+>
+    <div class="bg-white rounded-2xl p-6 w-80 shadow-xl">
 
+        <h3 class="text-lg font-bold text-center">
+            削除しますか？
+        </h3>
+
+        <p class="text-sm text-gray-500 text-center mt-2">
+            この投稿を削除してよろしいですか？
+        </p>
+
+        <div class="flex gap-3 mt-6">
+
+            <button
+                type="button"
+                onclick="closeDeleteModal()"
+                class="flex-1 border border-gray-300 py-2 rounded-lg"
+            >
+                キャンセル
+            </button>
+
+              <form
+                action="{{ route('posts.destroy', $post->id) }}"
+                method="POST"
+                class="flex-1"
+            >
+                @csrf
+                @method('DELETE')
+
+                <button
+                    type="submit"
+                    class="w-full bg-red-500 text-white py-2 rounded-lg"
+                >
+                    削除
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+   <div
+    id="commentDeleteModal"
+    class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50"
+>
+    <div class="bg-white rounded-2xl p-6 w-80 shadow-xl">
+
+        <h3 class="text-lg font-bold text-center">
+            削除しますか？
+        </h3>
+
+        <p class="text-sm text-gray-500 text-center mt-2">
+            このコメントを削除してよろしいですか？
+        </p>
+
+        <div class="flex gap-3 mt-6">
+
+            <button
+                type="button"
+                onclick="closeCommentDeleteModal()"
+                class="flex-1 border border-gray-300 py-2 rounded-lg"
+            >
+                キャンセル
+            </button>
+
+            <form
+                id="commentDeleteForm"
+                method="POST"
+                class="flex-1"
+            >
+                @csrf
+                @method('DELETE')
+
+                <button
+                    type="submit"
+                    class="w-full bg-red-500 text-white py-2 rounded-lg"
+                >
+                    削除
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
 @include('components.bottom-nav')
+<script>
+    function openDeleteModal() {
+        document
+            .getElementById('deleteModal')
+            .classList.remove('hidden');
+    }
 
+    function closeDeleteModal() {
+        document
+            .getElementById('deleteModal')
+            .classList.add('hidden');
+    }
+
+    function openCommentDeleteModal(commentId) {
+        const form = document.getElementById('commentDeleteForm');
+
+        form.action = `/comments/${commentId}`;
+
+        document
+            .getElementById('commentDeleteModal')
+            .classList.remove('hidden');
+    }
+
+    function closeCommentDeleteModal() {
+        document
+            .getElementById('commentDeleteModal')
+            .classList.add('hidden');
+    }
+</script>
 </body>
 </html>

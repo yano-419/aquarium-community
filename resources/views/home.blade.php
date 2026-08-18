@@ -65,7 +65,11 @@
 
             @foreach ($species as $animal)
 
-        <a href="{{ route('species.show', $animal->id) }}" class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <a href="{{ route('species.show', [
+    'species' => $animal->id,
+    'from' => 'home'
+    ]) }}"
+    class="min-w-[120px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
 
           <img src="{{ asset($animal->image_path) }}" alt="{{ $animal->name }}" class="h-28 w-full object-cover rounded-t-xl">
 
@@ -101,8 +105,11 @@
 
         @foreach ($aquariums as $aquarium)
 
-        <a href="{{ route('aquariums.show', $aquarium->id) }}"
-          class="min-w-[160px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
+   <a href="{{ route('aquariums.show', [
+    'aquarium' => $aquarium->id,
+    'from' => 'home'
+    ]) }}"
+    class="min-w-[160px] bg-white rounded-xl shadow hover:shadow-xl hover:-translate-y-1 transition">
 
             <img src="{{ asset($aquarium->image_path) }}" alt="{{ $aquarium->name }}" class="h-28 w-full object-cover rounded-t-xl">
 
