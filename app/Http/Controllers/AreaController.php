@@ -24,4 +24,14 @@ class AreaController extends Controller
             compact('area')
         );
     }
+
+    public function species(Area $area)
+    {
+    $area->load('species');
+
+    return view(
+        'areas.species',
+        compact('area')
+    );
+    }
 }

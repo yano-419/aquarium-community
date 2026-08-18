@@ -24,26 +24,33 @@
 
       <div class="absolute inset-0 flex items-center">
 
-    <a href="{{ 
-        request()->query('from') === 'favorites'
-            ? route('mypage.favorites')
-            : (
-                request()->query('from') === 'aquarium-species'
-                    ? route('aquarium.species', request()->query('aquarium'))
-                    : (
-                        request()->query('from') === 'aquarium'
-                            ? route('aquariums.show', request()->query('aquarium'))
-                            : route('species.index')
-                    )
-            )
-    }}"
-    class="text-white text-2xl pl-4">
+ @php
+    if (request()->query('from') === 'favorites') {
+        $backUrl = route('mypage.favorites');
+    } elseif (request()->query('from') === 'aquarium-species') {
+        $backUrl = route('aquarium.species', request()->query('aquarium'));
+    } elseif (request()->query('from') === 'area-species') {
+        $backUrl = route('areas.species', request()->query('area'));
+    } elseif (request()->query('from') === 'aquarium') {
+        $backUrl = route('aquariums.show', request()->query('aquarium'));
+    } else {
+        $backUrl = route('species.index');
+    }
+@endphp
+
+<div class="absolute inset-0 flex items-center">
+
+    <a href="{{ $backUrl }}"
+       class="text-white text-2xl pl-4">
         ←
     </a>
 
     <h1 class="text-white text-2xl font-bold mx-auto pr-10">
         生き物詳細
     </h1>
+
+</div>
+
 
 </div>
     </div>

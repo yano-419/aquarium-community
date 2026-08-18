@@ -126,6 +126,10 @@ Route::get(
     [AquariumController::class, 'species']
 )->name('aquarium.species');
 
+Route::get(
+    '/areas/{area}/species',
+    [AreaController::class, 'species']
+)->name('areas.species');
 });
 
 // 一般ユーザー（ログイン済みなら誰でも）

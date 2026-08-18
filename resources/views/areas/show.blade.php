@@ -62,9 +62,17 @@ class="text-white text-2xl font-bold">
 
         <div class="mt-6">
 
-            <h3 class="font-bold text-lg mb-3">
-                展示されている生き物
-            </h3>
+            <div class="flex justify-between items-center mb-3">
+ 
+              <h3 class="font-bold text-lg">
+               展示されている生き物
+              </h3>
+
+             <a href="{{ route('areas.species', $area->id) }}"
+               class="text-blue-500 text-sm">
+              もっと見る >
+              </a>
+            </div>
 
             <div class="grid grid-cols-3 gap-3">
 
