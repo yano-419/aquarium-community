@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
-use App\Models\Species;
 use App\Models\AquariumSpecies;
 
 class StaffDashboardController extends Controller

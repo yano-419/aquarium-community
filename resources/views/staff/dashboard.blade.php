@@ -7,81 +7,222 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="bg-slate-100">
 
-<div class="max-w-5xl mx-auto min-h-screen p-6">
+<div class="flex min-h-screen">
 
-    <h1 class="text-3xl font-bold mb-2">
-        水族館担当者ダッシュボード
-    </h1>
+    <!-- サイドバー -->
+    <aside class="w-80 bg-gradient-to-b from-sky-400 to-blue-600 text-white shadow-xl">
 
-    <p class="text-gray-600 mb-6">
-        こんにちは、{{ auth()->user()->name }} さん
+        <div class="py-8 flex flex-col items-center border-b border-sky-300">
+
+     <img
+        src="{{ asset('images/logo.png') }}"
+        alt="ロゴ"
+        class="w-24 h-24 bg-white rounded-full p-2 shadow-md"
+    >
+
+    <h2 class="text-2xl font-bold mt-4">
+        Aquarium Community
+    </h2>
+
+    <p class="mt-2 text-sm text-sky-100">
+        管理メニュー
     </p>
 
-    <div class="grid grid-cols-2 gap-4">
+</div>
 
-        <div class="bg-white rounded-2xl shadow p-6 text-center">
+        <nav class="p-4 space-y-3">
 
-            <h2 class="text-blue-600 font-bold">
-                展示エリア数
-            </h2>
+            <a href="{{ route('staff.dashboard') }}"
+                class="block rounded-xl px-5 py-4 text-lg font-semibold bg-sky-500 hover:bg-sky-400 transition"
+            >
+                🏠 ダッシュボード
+            </a>
 
-            <p class="text-5xl font-bold mt-4">
-                {{ $areaCount }}
-            </p>
+            <a href="#"
+                class="block rounded-xl px-5 py-4 text-lg font-semibold hover:bg-sky-500 transition"
+            >
+                🏛 展示エリア管理
+            </a>
 
-            <p class="mt-2 text-gray-500">
-                エリア
-            </p>
+            <a href="#"
+                class="block rounded-xl px-5 py-4 text-lg font-semibold hover:bg-sky-500 transition"
+            >
+                🐟 生き物管理
+            </a>
 
-        </div>
+            <a href="{{ route('profile.edit') }}"
+                class="block rounded-xl px-5 py-4 text-lg font-semibold hover:bg-sky-500 transition"
+            >
+                👤 プロフィール
+            </a>
 
-        <div class="bg-white rounded-2xl shadow p-6 text-center">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
 
-            <h2 class="text-cyan-600 font-bold">
-                登録生き物数
-            </h2>
+                <button
+                    type="submit"
+                    class="w-full text-left rounded-xl px-5 py-4 text-lg font-semibold hover:bg-sky-500 transition"
+                >
+                    🚪 ログアウト
+                </button>
+            </form>
 
-            <p class="text-5xl font-bold mt-4">
-                {{ $speciesCount }}
-            </p>
+        </nav>
 
-            <p class="mt-2 text-gray-500">
-                種類
-            </p>
+    </aside>
 
-        </div>
+    <!-- 右エリア -->
+    <div class="flex-1">
+
+        <!-- ヘッダー -->
+       <header
+    class="
+        relative
+        overflow-hidden
+        text-white
+        shadow
+        bg-cover
+        bg-center
+    "
+    style="
+        background-image:
+        url('{{ asset('images/ocean-background.jpg') }}');
+    "
+>
+
+    <div class="absolute inset-0 bg-blue-900/40"></div>
+
+    <div class="relative h-20 flex items-center justify-center">
+
+        <h1 class="text-3xl md:text-4xl font-bold">
+            水族館担当者ダッシュボード
+        </h1>
 
     </div>
 
-    <div class="grid md:grid-cols-2 gap-4 mt-6">
+</header>
 
-        <a href="#"
-            class="bg-white rounded-xl shadow p-5 hover:bg-slate-50">
-            展示エリア管理
-        </a>
+        <!-- メインコンテンツ -->
+        <div class="flex">
 
-        <a href="#"
-            class="bg-white rounded-xl shadow p-5 hover:bg-slate-50">
-            生き物管理
-        </a>
+            <!-- 中央 -->
+            <main class="flex-1 p-10">
 
-        <a href="#"
-            class="bg-white rounded-xl shadow p-5 hover:bg-slate-50">
-            プロフィール
-        </a>
+                <h2 class="text-3xl font-bold mb-2">
+                    こんにちは、
+                    {{ auth()->user()->name }}
+                    さん
+                </h2>
 
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
+                <p class="text-gray-600 mb-10">
+                    今日も素敵な水族館運営を！
+                </p>
 
-            <button
-                type="submit"
-                class="w-full bg-white rounded-xl shadow p-5 text-left hover:bg-slate-50"
-            >
-                ログアウト
-            </button>
-        </form>
+                <div class="grid md:grid-cols-2 gap-10 max-w-4xl">
+
+                    <!-- 展示エリア数 -->
+                    <div class="bg-white rounded-3xl shadow-lg p-14 text-center">
+
+                        <div class="text-6xl mb-4">
+                            🏛
+                        </div>
+
+                        <h3 class="text-blue-600 font-bold text-2xl">
+                            展示エリア数
+                        </h3>
+
+                        <p class="text-9xl font-bold mt-6">
+                            {{ $areaCount }}
+                        </p>
+
+                        <p class="text-gray-500 mt-2">
+                            エリア
+                        </p>
+
+                    </div>
+
+                    <!-- 生き物数 -->
+                    <div class="bg-white rounded-3xl shadow-lg p-14 text-center">
+
+                        <div class="text-6xl mb-4">
+                            🐟
+                        </div>
+
+                        <h3 class="text-cyan-600 font-bold text-2xl">
+                            登録生き物数
+                        </h3>
+
+                        <p class="text-9xl font-bold mt-6">
+                            {{ $speciesCount }}
+                        </p>
+
+                        <p class="text-gray-500 mt-2">
+                            種類
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+            <!-- 右側情報 -->
+            <aside class="w-80 p-8 space-y-6">
+
+                <div class="bg-white rounded-3xl shadow-lg p-6 text-center">
+
+                    <div class="text-4xl mb-3">
+                        👥
+                    </div>
+
+                    <h3 class="text-green-600 font-bold">
+                        担当者数
+                    </h3>
+
+                    <p class="text-5xl font-bold mt-3">
+                        1
+                    </p>
+
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-6 text-center">
+
+                    <div class="text-4xl mb-3">
+                        ✅
+                    </div>
+
+                    <h3 class="text-green-600 font-bold">
+                        ステータス
+                    </h3>
+
+                    <p class="text-2xl font-bold mt-3">
+                        Active
+                    </p>
+
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-6 text-center">
+
+                    <div class="text-4xl mb-3">
+                        🕒
+                    </div>
+
+                    <h3 class="text-indigo-600 font-bold">
+                        最終更新
+                    </h3>
+
+                    <p class="mt-3 text-lg">
+                        {{ now()->format('Y/m/d') }}
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
 
     </div>
 
