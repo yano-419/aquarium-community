@@ -2,12 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Area;
+use App\Models\Species;
+use App\Models\AquariumSpecies;
 
 class StaffDashboardController extends Controller
 {
     public function index()
     {
-        return view('staff.dashboard');
+        $aquariumId = auth()->user()
+            ->aquariumStaff
+            ->aquarium_id;
+
+        $areaCount = Area::where(
+            'aquarium_id',
+            $aquariumId
+        )->count();
+
+       return view('staff.dashboard', [
+        'areaCount' => $areaCount,
+
+        'speciesCount' => AquariumSpecies::where(
+        'aquarium_id',
+        $aquariumId
+       )->count(),
+       ]);
+
     }
 }

@@ -27,6 +27,13 @@ class Aquarium extends Model
     {
     return $this->hasMany(Area::class);
     }
+
+    public function aquariumStaffs()
+    {
+    return $this->hasMany(
+        AquariumStaff::class
+    );
+    }
 }
 
 
