@@ -106,10 +106,19 @@
 </header>
 
         <!-- メインコンテンツ -->
-        <div class="flex">
+<div
+    class="flex"
+    style="
+        background-image: url('{{ asset('images/dashboard-background.png') }}');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    "
+>
 
-            <!-- 中央 -->
-            <main class="flex-1 p-10">
+    <main
+        class="flex-1 p-10 min-h-[calc(100vh-80px)]"
+    >
 
                 <h2 class="text-3xl font-bold mb-2">
                     こんにちは、
@@ -121,13 +130,13 @@
                     今日も素敵な水族館運営を！
                 </p>
 
-                <div class="grid md:grid-cols-2 gap-10 max-w-4xl">
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
 
                     <!-- 展示エリア数 -->
                     <div class="bg-white rounded-3xl shadow-lg p-14 text-center">
 
-                        <div class="text-6xl mb-4">
-                            🏛
+                        <div class="w-20 h-20 mx-auto mb-4">
+                            <img src="{{ asset('images/area-icon.png') }}" alt="Area Icon" class="w-full h-full object-contain">
                         </div>
 
                         <h3 class="text-blue-600 font-bold text-2xl">
@@ -147,8 +156,8 @@
                     <!-- 生き物数 -->
                     <div class="bg-white rounded-3xl shadow-lg p-14 text-center">
 
-                        <div class="text-6xl mb-4">
-                            🐟
+                        <div class="w-20 h-20 mx-auto mb-4">
+                            <img src="{{ asset('images/species-icon.png') }}" alt="Species Icon" class="w-full h-full object-contain">
                         </div>
 
                         <h3 class="text-cyan-600 font-bold text-2xl">
@@ -164,18 +173,17 @@
                         </p>
 
                     </div>
-
+                 
                 </div>
 
             </main>
 
             <!-- 右側情報 -->
-            <aside class="w-80 p-8 space-y-6">
-
+            <aside class="w-80 p-8 pr-12 space-y-6">
                 <div class="bg-white rounded-3xl shadow-lg p-6 text-center">
 
-                    <div class="text-4xl mb-3">
-                        👥
+                    <div class="w-20 h-20 mx-auto mb-4">
+                        <img src="{{ asset('images/staff-icon.png') }}" alt="Staff Icon" class="w-full h-full object-contain">
                     </div>
 
                     <h3 class="text-green-600 font-bold">
@@ -190,8 +198,8 @@
 
                 <div class="bg-white rounded-3xl shadow-lg p-6 text-center">
 
-                    <div class="text-4xl mb-3">
-                        ✅
+                    <div class="w-20 h-20 mx-auto mb-4">
+                        <img src="{{ asset('images/status-icon.png') }}" alt="Status Icon" class="w-full h-full object-contain">
                     </div>
 
                     <h3 class="text-green-600 font-bold">
@@ -206,8 +214,8 @@
 
                 <div class="bg-white rounded-3xl shadow-lg p-6 text-center">
 
-                    <div class="text-4xl mb-3">
-                        🕒
+                    <div class="w-20 h-20 mx-auto mb-4">
+                        <img src="{{ asset('images/update-icon.png') }}" alt="Update Icon" class="w-full h-full object-contain">
                     </div>
 
                     <h3 class="text-indigo-600 font-bold">
