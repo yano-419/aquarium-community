@@ -35,4 +35,15 @@
                 マイページ
             </div>
         </a>
+        @if(auth()->check() && auth()->user()->role === 'staff')
+      <a href="{{ route('staff.dashboard') }}" class="{{ request()->routeIs('staff.*') ? 'text-blue-600' : 'text-gray-500' }} text-center">
+
+    <img src="{{ asset('images/icons/manage.png') }}" alt="管理" class="w-6 h-6 mx-auto">
+
+    <div class="text-[11px] mt-1">
+        管理
+    </div>
+
+</a>
+@endif
     </div>
