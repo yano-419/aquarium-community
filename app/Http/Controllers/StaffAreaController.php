@@ -6,6 +6,7 @@ use App\Models\Species;
 use App\Models\Area;
 use Illuminate\Http\Request;
 
+
 class StaffAreaController extends Controller
 {
     public function index()
@@ -76,4 +77,65 @@ class StaffAreaController extends Controller
             '展示エリアを登録しました'
         );
     }
+    public function edit(Area $area)
+    {
+    $species = Species::orderBy('name')
+        ->get();
+
+    return view(
+        'staff.areas.edit',
+        compact('area', 'species')
+    );
+
+    }
+    public function update(
+    Request $request,
+    Area $area
+   )
+   {
+    $request->validate([
+        'name' => 'required|max:100',
+        'description' => 'required',
+    ]);
+
+    $data = [
+        'name' => $request->name,
+        'description' => $request->description,
+    ];
+
+    if ($request->hasFile('image')) {
+
+        $path = $request
+            ->file('image')
+            ->store('areas', 'public');
+
+        $data['image_path'] =
+            'storage/' . $path;
+    }
+
+    $area->update($data);
+
+    $area->species()->sync(
+        $request->species_ids ?? []
+    );
+
+    return redirect()
+        ->route('staff.areas.index')
+        ->with(
+            'success',
+            '展示エリアを更新しました'
+        );
+}
+
+public function destroy(Area $area)
+{
+    $area->delete();
+
+    return redirect()
+        ->route('staff.areas.index')
+        ->with(
+            'success',
+            '展示エリアを削除しました'
+        );
+}
 }

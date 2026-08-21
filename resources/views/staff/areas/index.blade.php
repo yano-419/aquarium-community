@@ -34,8 +34,8 @@
                     "
                 >
 
-                <a
-                    href="{{ route('staff.areas.create') }}"
+                
+                <a href="{{ route('staff.areas.create') }}"
                     class="
                         px-6
                         py-3
@@ -122,6 +122,24 @@
                     <td class="p-4 text-center">
 
                         <button
+                            type="button"
+                            onclick="openDeleteModal({{ $area->id }})"
+                            class="
+                                px-4
+                                py-2
+                                border
+                                border-red-500
+                                text-red-500
+                                rounded-xl
+                                hover:bg-red-500
+                                hover:text-white
+                                transition
+                            "
+                        >
+                            削除
+                        </button>
+                        
+                           <a href="{{ route('staff.areas.edit', $area->id) }}"
                             class="
                                 px-4
                                 py-2
@@ -135,24 +153,7 @@
                             "
                         >
                             編集
-                        </button>
-
-                        <button
-                            class="
-                                px-4
-                                py-2
-                                border
-                                border-red-500
-                                text-red-500
-                                rounded-xl
-                                hover:bg-red-500
-                                hover:text-white
-                                transition
-                                ml-2
-                            "
-                        >
-                            削除
-                        </button>
+                        </a>
 
                     </td>
 
@@ -167,5 +168,80 @@
     </div>
 
 </div>
+
+<!-- 削除確認モーダル -->
+<div
+    id="deleteModal"
+    class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50"
+>
+
+    <div class="bg-white rounded-2xl p-6 w-96 shadow-xl">
+
+        <h3 class="text-lg font-bold text-center">
+            削除しますか？
+        </h3>
+
+        <p class="text-sm text-gray-500 text-center mt-2">
+            この展示エリアを削除してよろしいですか？
+        </p>
+
+        <div class="flex gap-3 mt-6">
+
+            <button
+                type="button"
+                onclick="closeDeleteModal()"
+                class="flex-1 border border-gray-300 py-2 rounded-lg"
+            >
+                キャンセル
+            </button>
+
+            <form
+                id="deleteAreaForm"
+                method="POST"
+                class="flex-1"
+            >
+                @csrf
+                @method('DELETE')
+
+                <button
+                    type="submit"
+                    class="w-full bg-red-500 text-white py-2 rounded-lg"
+                >
+                    削除
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function openDeleteModal(areaId)
+{
+    const form =
+        document.getElementById(
+            'deleteAreaForm'
+        );
+
+    form.action =
+        `/staff/areas/${areaId}`;
+
+    document
+        .getElementById('deleteModal')
+        .classList.remove('hidden');
+}
+
+function closeDeleteModal()
+{
+    document
+        .getElementById('deleteModal')
+        .classList.add('hidden');
+}
+
+</script>
 
 @endsection

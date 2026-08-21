@@ -1,8 +1,8 @@
 @extends('layouts.staff')
 
-@section('title', '展示エリア登録')
+@section('title', '展示エリア編集')
 
-@section('header-title', '展示エリア登録')
+@section('header-title', '展示エリア編集')
 
 @section('content')
 
@@ -10,15 +10,16 @@
 
     <div class="w-full mx-auto bg-white rounded-3xl shadow-lg p-12">
 
-        <h2 class="text-3xl font-bold text-blue-700 mb-10">
-            新しい展示エリアを登録
-        </h2>
+       <h2 class="text-3xl font-bold text-blue-700 mb-10">
+    展示エリアを編集
+</h2>
 
         <form
-            action="{{ route('staff.areas.store') }}"
+           action="{{ route('staff.areas.update', $area) }}"
             method="POST"
             enctype="multipart/form-data"
         >
+            @method('PUT')
             @csrf
 
             <div class="grid grid-cols-12 gap-8">
@@ -33,9 +34,10 @@
                             展示エリア名
                         </label>
 
-                        <input
-                            type="text"
-                            name="name"
+                       <input
+                         type="text"
+                         name="name"
+                         value="{{ old('name', $area->name) }}"
                             class="w-full border rounded-xl p-4 text-lg"
                         >
 
@@ -52,102 +54,139 @@
                             name="description"
                             rows="6"
                             class="w-full border rounded-xl p-4 text-lg"
-                        ></textarea>
+                        > {{ old('description', $area->description) }}</textarea>
 
                     </div>
 
-                    {{-- 画像 --}}
-                    <div class="mb-6">
+                   <div class="grid grid-cols-2 gap-6 mb-6">
 
-                        <label class="block text-lg font-semibold mb-2">
-                            画像
-                        </label>
+    {{-- 現在の画像 --}}
+    <div>
 
-                        <label
-                            for="image"
-                            id="image-container"
-                            class="
-                                relative
-                                mt-2
-                                flex
-                                items-center
-                                justify-center
-                                w-full
-                                min-h-[400px]
-                                border-2
-                                border-dashed
-                                border-gray-300
-                                rounded-xl
-                                cursor-pointer
-                                overflow-hidden
-                                bg-white
-                            "
-                        >
+        <p class="text-sm text-gray-500 mb-2">
+            現在の画像
+        </p>
 
-                            <div
-                                id="upload-placeholder"
-                                class="flex flex-col items-center justify-center"
-                            >
+        <img src="{{ asset($area->image_path) }}"
+            alt="{{ $area->name }}"
+            class="
+                w-full
+                h-72
+                object-contain
+                bg-white
+                border
+                rounded-xl
+            "
+        >
 
-                                <span class="text-5xl">
-                                    📷
-                                </span>
+    </div>
 
-                                <span class="mt-2 font-medium">
-                                    画像を選択
-                                </span>
+    {{-- 新しい画像 --}}
+    <div>
 
-                                <span class="text-xs text-gray-400 mt-1">
-                                    JPG / PNG
-                                </span>
+        <p class="text-sm text-gray-500 mb-2">
+            新しい画像
+        </p>
 
-                            </div>
+        <label
+            for="image"
+            id="image-container"
+            class="
+                relative
+                flex
+                items-center
+                justify-center
+                w-full
+                h-72
+                border-2
+                border-dashed
+                border-gray-300
+                rounded-xl
+                cursor-pointer
+                overflow-hidden
+                bg-white
+            "
+        >
 
-                            <img
-                                id="image-preview"
-                                class="hidden w-full h-full object-cover rounded-lg"
-                            >
+            <div
+                id="upload-placeholder"
+                class="flex flex-col items-center justify-center"
+            >
+                <span class="text-5xl">📷</span>
 
-                            <button
-                                type="button"
-                                id="remove-image"
-                                class="
-                                    hidden
-                                    absolute
-                                    top-2
-                                    right-2
-                                    bg-red-500
-                                    text-white
-                                    w-7
-                                    h-7
-                                    rounded-full
-                                    shadow-lg
-                                    flex
-                                    items-center
-                                    justify-center
-                                    z-20
-                                "
-                            >
-                                ✕
-                            </button>
+                <span class="mt-2 font-medium">
+                    画像を選択
+                </span>
 
-                        </label>
+                <span class="text-xs text-gray-400 mt-1">
+                    JPG / PNG
+                </span>
+            </div>
 
-                        <input
-                            id="image"
-                            type="file"
-                            name="image"
-                            accept="image/*"
-                            class="hidden"
-                        >
+            <img
+                id="image-preview"
+                class="
+                    hidden
+                    w-full
+                    h-full
+                    object-contain
+                    bg-white
+                "
+            >
 
-                    </div>
+            <button
+                type="button"
+                id="remove-image"
+                class="
+                    hidden
+                    absolute
+                    top-2
+                    right-2
+                    bg-red-500
+                    text-white
+                    w-7
+                    h-7
+                    rounded-full
+                    shadow-lg
+                    flex
+                    items-center
+                    justify-center
+                    z-20
+                "
+            >
+                ✕
+            </button>
 
+        </label>
+
+        <input
+            id="image"
+            type="file"
+            name="image"
+            accept="image/*"
+            class="hidden"
+        >
+
+    </div>
+
+</div>
                 </div>
 
                 {{-- 右側 --}}
                 <div class="col-span-5">
-                    <div id="hidden-species-inputs"></div>
+                    <div id="hidden-species-inputs">
+
+                        @foreach($area->species as $animal)
+                            <input
+                                type="hidden"
+                                name="species_ids[]"
+                                value="{{ $animal->id }}"
+                                id="hidden-{{ $animal->id }}"
+                            >
+                        @endforeach
+
+                    </div>
+
                     <h3 class="text-xl font-bold mb-3">
                         選択済み生物
                     </h3>
@@ -165,7 +204,51 @@
                         "
                     >
 
-                        <div id="selected-species-list"></div>
+                        <div id="selected-species-list">
+
+                            @foreach($area->species as $animal)
+
+                                <div
+                                    id="selected-{{ $animal->id }}"
+                                    class="flex justify-between items-center py-3 border-b"
+                                >
+
+                                    <div class="flex items-center gap-3">
+
+                                        <img src="{{ asset($animal->image_path) }}"
+                                            alt="{{ $animal->name }}"
+                                            class="w-12 h-12 rounded-lg object-cover"
+                                        >
+
+                                        <span>
+                                            {{ $animal->name }}
+                                        </span>
+
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        class="
+                                            remove-species
+                                            bg-red-500
+                                            text-white
+                                            w-10
+                                            h-10
+                                            rounded-xl
+                                            text-lg
+                                            hover:bg-red-600
+                                        "
+                                        data-id="{{ $animal->id }}"
+                                    >
+                                        −
+                                    </button>
+
+                                </div>
+
+                            @endforeach
+
+                        </div>
+
                     </div>
 
                     <h3 class="text-xl font-bold mb-3">
@@ -199,15 +282,7 @@
                         @foreach($species as $animal)
 
                             <div
-                                class="
-                                    species-item
-                                    flex
-                                    justify-between
-                                    items-center
-                                    py-3
-                                    border-b
-                                    gap-3
-                                "
+                                class="species-item flex justify-between items-center py-3 border-b gap-3"
                                 data-species-id="{{ $animal->id }}"
                             >
 
@@ -298,7 +373,7 @@
                         shadow-lg
                     "
                 >
-                    登録
+                    更新
                 </button>
 
             </div>
@@ -322,6 +397,7 @@ function hiraToKata(str)
         }
     );
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const imageInput = document.getElementById('image');
@@ -367,7 +443,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    // 初期表示されている「選択済み生物」の削除ボタンを有効化
+    document
+        .querySelectorAll('#selected-species-list .remove-species')
+        .forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                const id = button.dataset.id;
+
+                const item = document.getElementById('selected-' + id);
+                const input = document.getElementById('hidden-' + id);
+                const row = document.querySelector(
+                    '.species-item[data-species-id="' + id + '"]'
+                );
+
+                if (item) item.remove();
+                if (input) input.remove();
+                if (row) row.style.display = 'flex';
+
+            });
+
+        });
+
+    // 初期選択済みの生き物は「追加する」候補一覧から隠す
+    document
+        .querySelectorAll('#selected-species-list [id^="selected-"]')
+        .forEach(item => {
+
+            const id = item.id.replace('selected-', '');
+
+            const row = document.querySelector(
+                '.species-item[data-species-id="' + id + '"]'
+            );
+
+            if (row) row.style.display = 'none';
+
+        });
+
 });
+
 const selectedBox =
     document.getElementById('selected-species-list');
 
@@ -464,6 +579,7 @@ document
         });
 
     });
+
 const searchInput =
     document.getElementById(
         'species-search'
@@ -481,6 +597,16 @@ searchInput.addEventListener(
         document
             .querySelectorAll('.species-item')
             .forEach(item => {
+
+                const id = item.dataset.speciesId;
+
+                // すでに選択済みの生き物は検索結果に関わらず表示しない
+                if (
+                    document.getElementById('selected-' + id)
+                ) {
+                    item.style.display = 'none';
+                    return;
+                }
 
                 const text =
                     hiraToKata(
