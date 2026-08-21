@@ -1,36 +1,13 @@
 @extends('layouts.staff')
 
-@section('title', '水族館担当者ダッシュボード')
+@section('title', '担当者ダッシュボード')
+
+@section(
+    'header-title',
+    '水族館担当者ダッシュボード'
+)
 
 @section('content')
-
-<!-- ヘッダー -->
-<header
-    class="
-        relative
-        overflow-hidden
-        text-white
-        shadow
-        bg-cover
-        bg-center
-    "
-    style="
-        background-image:
-        url('{{ asset('images/ocean-background.jpg') }}');
-    "
->
-
-    <div class="absolute inset-0 bg-blue-900/40"></div>
-
-    <div class="relative h-20 flex items-center justify-center">
-
-        <h1 class="text-3xl md:text-4xl font-bold">
-            水族館担当者ダッシュボード
-        </h1>
-
-    </div>
-
-</header>
 
 <!-- メインコンテンツ -->
 <div

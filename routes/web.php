@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\StaffAreaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -130,6 +131,22 @@ Route::get(
     '/areas/{area}/species',
     [AreaController::class, 'species']
 )->name('areas.species');
+});
+
+Route::middleware(['auth', 'role:staff'])
+    ->prefix('staff')
+    ->name('staff.')
+    ->group(function () {
+
+        Route::get(
+            '/dashboard',
+            [StaffDashboardController::class, 'index']
+        )->name('dashboard');
+
+        Route::resource(
+            'areas',
+            StaffAreaController::class
+        );
 });
 
 // 一般ユーザー（ログイン済みなら誰でも）

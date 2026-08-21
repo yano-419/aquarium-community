@@ -17,6 +17,34 @@
 
     <div class="flex-1">
 
+        <!-- 共通ヘッダー -->
+        <header
+            class="
+                relative
+                overflow-hidden
+                text-white
+                shadow
+                bg-cover
+                bg-center
+            "
+            style="
+                background-image:
+                url('{{ asset('images/ocean-background.jpg') }}');
+            "
+        >
+
+            <div class="absolute inset-0 bg-blue-900/40"></div>
+
+            <div class="relative h-20 flex items-center justify-center">
+
+                <h1 class="text-3xl md:text-4xl font-bold">
+                    @yield('header-title')
+                </h1>
+
+            </div>
+
+        </header>
+
         @yield('content')
 
     </div>
