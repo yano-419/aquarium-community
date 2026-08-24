@@ -120,6 +120,23 @@
                     </td>
 
                     <td class="p-4 text-center">
+                        <div class="flex items-center justify-center gap-3">
+
+                           <a href="{{ route('staff.areas.edit', $area->id) }}"
+                            class="
+                                px-4
+                                py-2
+                                border
+                                border-blue-500
+                                text-blue-500
+                                rounded-xl
+                                hover:bg-blue-500
+                                hover:text-white
+                                transition
+                            "
+                        >
+                            編集
+                        </a>
 
                         <button
                             type="button"
@@ -138,23 +155,6 @@
                         >
                             削除
                         </button>
-                        
-                           <a href="{{ route('staff.areas.edit', $area->id) }}"
-                            class="
-                                px-4
-                                py-2
-                                border
-                                border-blue-500
-                                text-blue-500
-                                rounded-xl
-                                hover:bg-blue-500
-                                hover:text-white
-                                transition
-                            "
-                        >
-                            編集
-                        </a>
-
                     </td>
 
                 </tr>

@@ -79,7 +79,7 @@
                                 border-gray-300
                                 rounded-xl
                                 cursor-pointer
-                                overflow-hidden
+                                overflow-auto
                                 bg-white
                             "
                         >
@@ -105,7 +105,13 @@
 
                             <img
                                 id="image-preview"
-                                class="hidden w-full h-full object-cover rounded-lg"
+                                class="
+                                    hidden
+                                    w-full
+                                    h-full
+                                    object-contain
+                                    bg-white
+                                "
                             >
 
                             <button
@@ -239,7 +245,7 @@
                                     data-image="{{ asset($animal->image_path) }}"
                                 >
                                     ＋
-                                </button>
+                        </button>
 
                             </div>
 
@@ -322,6 +328,7 @@ function hiraToKata(str)
         }
     );
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const imageInput = document.getElementById('image');
@@ -368,6 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
 const selectedBox =
     document.getElementById('selected-species-list');
 
@@ -464,6 +472,7 @@ document
         });
 
     });
+
 const searchInput =
     document.getElementById(
         'species-search'

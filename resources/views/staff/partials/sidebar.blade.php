@@ -62,7 +62,7 @@
 
         <!-- 生き物管理 -->
         <a
-            href="#"
+            href="{{ route('staff.species.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('staff.species.*')

@@ -13,6 +13,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\StaffAreaController;
+use App\Http\Controllers\StaffAquariumSpeciesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -133,6 +134,13 @@ Route::get(
 )->name('areas.species');
 });
 
+
+// 一般ユーザー（ログイン済みなら誰でも）
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
+
+// 水族館担当者
 Route::middleware(['auth', 'role:staff'])
     ->prefix('staff')
     ->name('staff.')
@@ -147,16 +155,11 @@ Route::middleware(['auth', 'role:staff'])
             'areas',
             StaffAreaController::class
         );
-});
 
-// 一般ユーザー（ログイン済みなら誰でも）
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-});
-
-// 水族館担当者
-Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
-    Route::get('/dashboard', [StaffDashboardController::class, 'index'])->name('dashboard');
+    Route::resource(
+    'species',
+    StaffAquariumSpeciesController::class
+  );
 });
 
 // システム管理者
