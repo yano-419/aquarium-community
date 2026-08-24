@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AquariumSpecies;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Aquarium;
 
@@ -16,6 +17,13 @@ class Species extends Model
     'description',
     'image_path',
     ];
+
+     public function aquariumSpecies()
+    {
+    return $this->hasMany(
+        AquariumSpecies::class
+    );
+    }
 
     public function aquariums()
     {
@@ -34,6 +42,5 @@ class Species extends Model
         'area_species'
     );
     }
-
 }
 

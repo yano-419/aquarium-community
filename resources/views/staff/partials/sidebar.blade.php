@@ -118,21 +118,37 @@
         </a>
 
         <!-- ログアウト -->
-        <a
-            href="{{ route('logout') }}"
-            class="
-                flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-                hover:bg-sky-500
-            "
-        >
-            <img
-                src="{{ asset('images/icons/logout.png') }}"
-                alt="ログアウト"
-                class="w-8 h-8"
-            >
+    <form action="{{ route('logout') }}" method="POST">
+    @csrf
 
-            <span>ログアウト</span>
-        </a>
+    <button
+        type="submit"
+        class="
+            w-full
+            flex
+            items-center
+            gap-3
+            px-5
+            py-4
+            rounded-xl
+            text-lg
+            font-semibold
+            transition
+            hover:bg-sky-500
+        "
+    >
+       <img
+            src="{{ asset('images/icons/logout.png') }}"
+            alt="ログアウト"
+            class="w-8 h-8"
+        >
+
+        <span>
+            ログアウト
+        </span>
+
+    </button>
+</form>
     </nav>
 
 </aside>
