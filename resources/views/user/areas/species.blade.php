@@ -51,25 +51,25 @@
             全{{ $area->species->count() }}種
         </p>
 
-        @forelse ($area->species as $species)
+        @forelse ($area->species as $animal)
 
-            <a href="{{ route('species.show', $species->id) }}"
+            <a href="{{ route('aquarium-species.show', $animal->id) }}"
                class="flex gap-3 bg-white rounded-xl shadow p-3 mb-3">
 
                 <img
-                    src="{{ asset($species->image_path) }}"
-                    alt="{{ $species->name }}"
+                    src="{{ asset($animal->image_path) }}"
+                    alt="{{ $animal->name }}"
                     class="w-20 h-20 object-cover rounded-lg"
                 >
 
                 <div class="flex-1">
 
                     <h3 class="font-bold">
-                        {{ $species->name }}
+                        {{ $animal->name }}
                     </h3>
 
                     <p class="text-sm text-gray-500">
-                        {{ $species->classification }}
+                        {{ $animal->classification }}
                     </p>
 
                 </div>

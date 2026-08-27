@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AquariumSpecies;
 use App\Models\Species;
 use App\Models\Area;
 use Illuminate\Http\Request;
@@ -31,8 +32,16 @@ class StaffAreaController extends Controller
 
     public function create()
     {
-    $species = Species::orderBy('name')
-        ->get();
+    $aquariumId = auth()->user()
+        ->aquariumStaff
+        ->aquarium_id;
+
+    $species = AquariumSpecies::where(
+        'aquarium_id',
+        $aquariumId
+    )
+    ->orderBy('name')
+    ->get();
 
     return view(
         'staff.areas.create',
@@ -79,15 +88,23 @@ class StaffAreaController extends Controller
     }
     public function edit(Area $area)
     {
-    $species = Species::orderBy('name')
-        ->get();
+    $aquariumId = auth()->user()
+        ->aquariumStaff
+        ->aquarium_id;
+
+    $species = AquariumSpecies::where(
+        'aquarium_id',
+        $aquariumId
+    )
+    ->orderBy('name')
+    ->get();
 
     return view(
         'staff.areas.edit',
         compact('area', 'species')
     );
-
     }
+
     public function update(
     Request $request,
     Area $area

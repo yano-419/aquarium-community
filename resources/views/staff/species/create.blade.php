@@ -239,7 +239,7 @@
                         </label>
 
                         <textarea
-                            name="dictionary_description"
+                            name="description"
                             rows="16"
                             class="
                                 w-full

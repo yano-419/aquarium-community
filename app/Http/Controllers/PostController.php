@@ -13,17 +13,17 @@ class PostController extends Controller
             ->latest()
             ->get();
 
-        return view('posts.index', compact('posts'));
+        return view('user.posts.index', compact('posts'));
     }
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        return view('user.posts.show', compact('post'));
     }
 
     public function create()
     {
-        return view('posts.create');
+        return view('user.posts.create');
     }
 
     public function store(Request $request)
@@ -57,13 +57,13 @@ class PostController extends Controller
     $post->delete();
 
     return redirect()
-        ->route('posts.index')
+        ->route('user.posts.index')
         ->with('success', '投稿を削除しました');
     }
 
     public function edit(Post $post)
  {
-    return view('posts.edit', compact('post'));
+    return view('user.posts.edit', compact('post'));
  }
 
  public function update(Request $request, Post $post)
@@ -100,6 +100,6 @@ class PostController extends Controller
         ->latest()
         ->get();
 
-    return view('posts.my-posts', compact('posts'));
+    return view('user.posts.my-posts', compact('posts'));
   }
 }

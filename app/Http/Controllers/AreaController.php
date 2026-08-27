@@ -11,8 +11,8 @@ class AreaController extends Controller
     $aquarium->load('areas');
 
     return view(
-        'areas.index',
-        compact('aquarium')
+    'user.areas.index',
+    compact('aquarium')
     );
     }
     public function show(Area $area)
@@ -20,7 +20,7 @@ class AreaController extends Controller
         $area->load('species');
 
         return view(
-            'areas.show',
+            'user.areas.show',
             compact('area')
         );
     }
@@ -30,7 +30,7 @@ class AreaController extends Controller
     $area->load('species');
 
     return view(
-        'areas.species',
+        'user.areas.species',
         compact('area')
     );
     }

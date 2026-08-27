@@ -32,7 +32,7 @@ class CommentController extends Controller
         abort(403);
     }
 
-    return view('comments.edit', compact('comment'));
+    return view('user.comments.edit', compact('comment'));
 }
 
     public function update(Request $request, Comment $comment)

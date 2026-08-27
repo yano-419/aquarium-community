@@ -234,10 +234,10 @@
                         </label>
 
                         <textarea
-                            name="dictionary_description"
+                            name="description"
                             rows="14"
                             class="w-full border rounded-xl p-4 text-lg"
-                        >{{ old('dictionary_description', $species->dictionary_description) }}</textarea>
+                        >{{ old('description',$species->description) }}</textarea>
 
                     </div>
 

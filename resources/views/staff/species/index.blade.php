@@ -18,21 +18,24 @@
 
             <div class="flex gap-3">
 
-                <input
-                    type="text"
-                    placeholder="生き物名で検索"
-                    class="
-                        border
-                        border-gray-300
-                        rounded-xl
-                        px-4
-                        py-3
-                        w-72
-                        text-base
-                        focus:ring-2
-                        focus:ring-blue-300
-                    "
-                >
+                <form action="{{ route('staff.species.index') }}" method="GET">
+                    <input
+                      type="text"
+                      id="species-search"
+                      placeholder="生き物名で検索"
+                      class="
+                      border
+                      border-gray-300
+                      rounded-xl
+                      px-4
+                      py-3
+                      w-72
+                      text-base
+                      focus:ring-2
+                      focus:ring-blue-300
+                      "
+                    >
+                </form>
 
                 <a href="{{ route('staff.species.create') }}"
                     class="
@@ -102,7 +105,14 @@
                       }
                     @endphp
 
-                    <tr class="border-b hover:bg-slate-50 transition">
+                    <tr
+                      class="
+                      species-row
+                      border-b
+                      hover:bg-slate-50
+                      transition
+                      "
+                    >
 
                         <td class="p-4 text-center">
 
@@ -114,21 +124,40 @@
 
                         </td>
 
-                        <td class="p-4 text-lg font-semibold">
-                            {{ $item->name }}
+                        <td
+                          class="
+                          species-name
+                          p-4
+                          text-lg
+                          font-semibold
+                          "
+                        >
+                        {{ $item->name }}
                         </td>
 
-                        <td class="p-4 text-base">
-                            {{ $item->scientific_name }}
+                       <td
+                         class="
+                         species-scientific-name
+                         p-4
+                         text-base
+                         "
+                         >
+                         {{ $item->scientific_name }}
+                       </td>
+
+                        <td
+                         class="
+                         species-classification
+                         p-4
+                         text-center
+                         "
+                         > 
+                         {{ $item->classification }}
                         </td>
 
-                        <td class="p-4 text-center">
-                            {{ $item->classification }}
-                        </td>
-
-                        <td class="p-4 text-center font-semibold">
-                           -
-                        </td>
+                       <td class="p-4 text-center font-semibold">
+                          {{ $item->areas->count() }}エリア
+                       </td>
 
                        <td class="p-4 text-center">
                            {{ $item->updated_at
@@ -270,6 +299,74 @@ function closeDeleteModal()
         .getElementById('deleteModal')
         .classList.add('hidden');
 }
+
+function hiraToKata(str)
+{
+    return str.replace(
+        /[\u3041-\u3096]/g,
+        function(match)
+        {
+            return String.fromCharCode(
+                match.charCodeAt(0) + 0x60
+            );
+        }
+    );
+}
+
+const searchInput =
+    document.getElementById(
+        'species-search'
+    );
+
+searchInput.addEventListener(
+    'input',
+    function ()
+    {
+        const keyword =
+            hiraToKata(
+                this.value.toLowerCase()
+            );
+
+        document
+            .querySelectorAll('.species-row')
+            .forEach(row => {
+
+                const name =
+                    hiraToKata(
+                        row.querySelector(
+                            '.species-name'
+                        )
+                        .textContent
+                        .toLowerCase()
+                    );
+
+                const scientificName =
+                    hiraToKata(
+                        row.querySelector(
+                            '.species-scientific-name'
+                        )
+                        .textContent
+                        .toLowerCase()
+                    );
+
+                const classification =
+                    hiraToKata(
+                        row.querySelector(
+                            '.species-classification'
+                        )
+                        .textContent
+                        .toLowerCase()
+                    );
+
+                row.style.display =
+                    name.includes(keyword)
+                    || scientificName.includes(keyword)
+                    || classification.includes(keyword)
+                        ? ''
+                        : 'none';
+            });
+    }
+);
 
 </script>
 

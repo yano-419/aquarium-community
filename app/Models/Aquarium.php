@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AquariumSpecies;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Species;
 
@@ -34,6 +35,14 @@ class Aquarium extends Model
         AquariumStaff::class
     );
     }
+
+    public function aquariumSpecies()
+    {
+    return $this->hasMany(
+        AquariumSpecies::class
+    );
+    }
+
 }
 
 

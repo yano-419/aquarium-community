@@ -22,12 +22,12 @@ class SpeciesController extends Controller
 
     $species = $species->get();
 
-    return view('species.index', compact('species'));
+    return view('user.species.index', compact('species'));
     }
 
     public function show(Species $species)
     {
-        return view('species.show', compact('species'));
+        return view('user.species.show', compact('species'));
     }
 
     public function aquariums(Species $species)
@@ -35,7 +35,7 @@ class SpeciesController extends Controller
     $species->load('aquariums');
 
     return view(
-        'species.aquariums',
+        'user.species.aquariums',
         compact('species')
     );
     }
@@ -45,7 +45,7 @@ class SpeciesController extends Controller
     $species->load('areas.aquarium');
 
     return view(
-        'species.areas',
+        'user.species.areas',
         compact('species')
     );
     }

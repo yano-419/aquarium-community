@@ -35,7 +35,7 @@ class FavoriteController extends Controller
         ->get();
 
     return view(
-        'favorites.index',
+        'user.favorites.index',
         compact('favorites')
     );
    }

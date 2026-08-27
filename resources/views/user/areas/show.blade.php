@@ -78,7 +78,7 @@ class="text-white text-2xl font-bold">
 
                 @forelse ($area->species->take(3) as $species)
 
-                    <a href="{{ route('species.show', $species->id) }}">
+                    <a href="{{ route('aquarium-species.show', $species->id) }}">
 
                         <img
                             src="{{ asset($species->image_path) }}"

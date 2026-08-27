@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AquariumSpeciesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
@@ -132,6 +133,11 @@ Route::get(
     '/areas/{area}/species',
     [AreaController::class, 'species']
 )->name('areas.species');
+
+Route::get(
+    '/aquarium-species/{aquariumSpecies}',
+    [AquariumSpeciesController::class, 'show']
+)->name('aquarium-species.show');
 });
 
 

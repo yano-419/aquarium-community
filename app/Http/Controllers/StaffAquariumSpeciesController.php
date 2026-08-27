@@ -10,26 +10,49 @@ class StaffAquariumSpeciesController extends Controller
 {
     public function index()
     {
-        $aquariumId = auth()->user()
-            ->aquariumStaff
-            ->aquarium_id;
+    $aquariumId = auth()->user()
+        ->aquariumStaff
+        ->aquarium_id;
 
-        $species = AquariumSpecies::with([
-           'species',
-           'species.areas'
-        ])
-        ->where(
-            'aquarium_id',
-            $aquariumId
-        )
+    $query = AquariumSpecies::with('areas')
+    ->where(
+        'aquarium_id',
+        $aquariumId
+    );
+
+    if ($keyword = request('keyword')) {
+
+        $query->where(function ($q) use ($keyword) {
+
+            $q->where(
+                'name',
+                'like',
+                "%{$keyword}%"
+            )
+            ->orWhere(
+                'scientific_name',
+                'like',
+                "%{$keyword}%"
+            )
+            ->orWhere(
+                'classification',
+                'like',
+                "%{$keyword}%"
+            );
+
+        });
+    }
+
+    $species = $query
         ->latest()
         ->get();
 
-        return view(
-            'staff.species.index',
-            compact('species')
-        );
+    return view(
+        'staff.species.index',
+        compact('species')
+    );
     }
+    
     public function create()
     {
     $species = Species::orderBy('name')
@@ -49,7 +72,7 @@ class StaffAquariumSpeciesController extends Controller
         'classification' => ['nullable', 'max:100'],
         'order_name' => ['nullable', 'max:100'],
         'family_name' => ['nullable', 'max:100'],
-        'dictionary_description' => ['nullable'],
+        'description' => ['nullable'],
         'image' => ['nullable', 'image'],
     ]);
 
@@ -67,26 +90,30 @@ class StaffAquariumSpeciesController extends Controller
         $path = 'storage/' . $path;
     }
 
-    AquariumSpecies::create([
-        'aquarium_id' => auth()->user()
-            ->aquariumStaff
-            ->aquarium_id,
+    $masterSpecies = Species::where(
+     'name',
+     $request->name
+     )->first();
 
-        'species_id' => 1,
+     AquariumSpecies::create([
+     'aquarium_id' => auth()->user()
+        ->aquariumStaff
+        ->aquarium_id,
 
-        'name' => $request->name,
-        'scientific_name' => $request->scientific_name,
-        'classification' => $request->classification,
-        'order_name' => $request->order_name,
-        'family_name' => $request->family_name,
-        'dictionary_description' => $request->dictionary_description,
+     'species_id' => $masterSpecies?->id,
 
-        'description' => null,
+     'name' => $request->name,
+     'scientific_name' => $request->scientific_name,
+     'classification' => $request->classification,
+     'order_name' => $request->order_name,
+     'family_name' => $request->family_name,
 
-        'image_path' => $path,
-    ]);
+     'description' => $request->description,
 
-    return redirect()
+     'image_path' => $path,
+      ]);
+
+     return redirect()
         ->route('staff.species.index')
         ->with(
             'success',
@@ -115,7 +142,7 @@ class StaffAquariumSpeciesController extends Controller
         'classification' => ['nullable'],
         'order_name' => ['nullable'],
         'family_name' => ['nullable'],
-        'dictionary_description' => ['nullable'],
+        'description' => ['nullable'],
         'image' => ['nullable', 'image'],
     ]);
 
@@ -129,8 +156,8 @@ class StaffAquariumSpeciesController extends Controller
             => $request->order_name,
         'family_name'
             => $request->family_name,
-        'dictionary_description'
-            => $request->dictionary_description,
+        'description'
+            => $request->description,
     ];
 
     if ($request->hasFile('image')) {

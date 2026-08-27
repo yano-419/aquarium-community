@@ -150,15 +150,12 @@
 
 </div>
 
-       @forelse ($aquarium->species->take(3) as $animal)
+       @forelse (
+    $aquarium->aquariumSpecies->take(3)
+    as $animal)
 
-    <a href="{{ route('species.show', [
-        'species' => $animal->id,
-        'from' => 'aquarium',
-        'aquarium' => $aquarium->id
-    ]) }}"
-   class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3"
->
+   <a href="{{ route('aquarium-species.show', $animal->id) }}"
+   class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
 
         <img src="{{ asset($animal->image_path) }}"
             alt="{{ $animal->name }}"

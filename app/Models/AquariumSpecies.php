@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Area;
 use Illuminate\Database\Eloquent\Model;
 
 class AquariumSpecies extends Model
@@ -36,4 +37,14 @@ class AquariumSpecies extends Model
             Aquarium::class
         );
     }
+
+    public function areas()
+    {
+    return $this->belongsToMany(
+        Area::class,
+        'area_species',
+        'aquarium_species_id',
+        'area_id'
+    );
+    } 
 }
