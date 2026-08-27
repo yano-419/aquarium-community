@@ -42,10 +42,10 @@
 
         <!-- 水族館管理 -->
         <a
-            href="#"
+            href="{{ route('admin.aquariums.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-                {{ request()->routeIs('staff.areas.*')
+                {{ request()->routeIs('admin.aquariums.*')
                     ? 'bg-sky-500'
                     : 'hover:bg-sky-500'
                 }}
@@ -62,10 +62,10 @@
 
         <!-- 担当者管理 -->
         <a
-            href="#"
+            href="{{ route('admin.staff.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-                {{ request()->routeIs('staff.species.*')
+                {{ request()->routeIs('admin.staff.*')
                     ? 'bg-sky-500'
                     : 'hover:bg-sky-500'
                 }}
@@ -85,7 +85,7 @@
             href="#"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-                {{ request()->routeIs('profile.*')
+                {{ request()->routeIs('admin.species.*')
                     ? 'bg-sky-500'
                     : 'hover:bg-sky-500'
                 }}
@@ -105,82 +105,108 @@
             href="#"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-                hover:bg-sky-500
+                {{ request()->routeIs('admin.species.unregistered')
+                    ? 'bg-sky-500'
+                    : 'hover:bg-sky-500'
+                }}
             "
         >
-             <img  
+             <img
                 src="{{ asset('images/icons/unregistered-species.png') }}"
                 alt="未登録生物管理"
                 class="w-8 h-8"
             >
 
             <span>未登録生物管理</span>
-          </a>
+        </a>
 
-          <!-- 投稿管理 -->
-        <a 
-           href="#"
-           class=" flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-           hover:bg-sky-500 "
-          >  
+        <!-- 投稿管理 -->
+        <a
+            href="#"
+            class="
+                flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
+                {{ request()->routeIs('admin.posts.*')
+                    ? 'bg-sky-500'
+                    : 'hover:bg-sky-500'
+                }}
+            "
+        >
+            <img
+                src="{{ asset('images/icons/post-manage.png') }}"
+                alt="投稿管理"
+                class="w-8 h-8"
+            >
 
-    <img src="{{ asset('images/icons/post-manage.png') }}"        
-        alt="投稿管理"
-        class="w-8 h-8"
-       >
+            <span>投稿管理</span>
+        </a>
 
-    <span>投稿管理</span>
-         </a>
+        <!-- 一般ユーザー画面 -->
+        <a
+            href="{{ route('home') }}"
+            class="
+                flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
+                hover:bg-sky-500
+            "
+        >
+            <img
+                src="{{ asset('images/icons/sidebar-home.png') }}"
+                alt="一般ユーザー画面"
+                class="w-8 h-8"
+            >
 
-           <!-- プロフィール -->
-        <a 
-           href="{{ route('profile.edit') }}"
-           class=" flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-           hover:bg-sky-500 "
-          >  
+            <span>一般ユーザー画面</span>
+        </a>
 
-    <img src="{{ asset('images/icons/sidebar-mypage.png') }}"        
-        alt="プロフィール"
-        class="w-8 h-8"
-       >
+        <!-- プロフィール -->
+        <a
+            href="#"
+            class="
+                flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
+                hover:bg-sky-500
+            "
+        >
+            <img
+                src="{{ asset('images/icons/sidebar-mypage.png') }}"
+                alt="プロフィール"
+                class="w-8 h-8"
+            >
 
-    <span>プロフィール</span>
-         </a>
+            <span>プロフィール</span>
+        </a>
 
         <!-- ログアウト -->
-    <form action="{{ route('logout') }}" method="POST">
-    @csrf
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
 
-    <button
-        type="submit"
-        class="
-            w-full
-            flex
-            items-center
-            gap-3
-            px-5
-            py-4
-            rounded-xl
-            text-lg
-            font-semibold
-            transition
-            hover:bg-sky-500
-        "
-    >
-       <img
-            src="{{ asset('images/icons/logout.png') }}"
-            alt="ログアウト"
-            class="w-8 h-8"
-        >
+            <button
+                type="submit"
+                class="
+                    w-full
+                    flex
+                    items-center
+                    gap-3
+                    px-5
+                    py-4
+                    rounded-xl
+                    text-lg
+                    font-semibold
+                    transition
+                    hover:bg-sky-500
+                "
+            >
+               <img
+                    src="{{ asset('images/icons/logout.png') }}"
+                    alt="ログアウト"
+                    class="w-8 h-8"
+                >
 
-        <span>
-            ログアウト
-        </span>
+                <span>
+                    ログアウト
+                </span>
 
-    </button>
-</form>
+            </button>
+        </form>
+
     </nav>
 
 </aside>
-            
-          

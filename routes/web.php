@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminStaffController;
+use App\Http\Controllers\AdminAquariumController;
 use App\Http\Controllers\AquariumSpeciesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -138,8 +140,8 @@ Route::get(
     '/aquarium-species/{aquariumSpecies}',
     [AquariumSpeciesController::class, 'show']
 )->name('aquarium-species.show');
-});
 
+});
 
 // 一般ユーザー（ログイン済みなら誰でも）
 Route::middleware(['auth'])->group(function () {
@@ -171,6 +173,41 @@ Route::middleware(['auth', 'role:staff'])
 // システム管理者
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get(
+    '/aquariums',
+    [AdminAquariumController::class, 'index']
+)->name('aquariums.index');
+
+Route::get(
+    '/aquariums/create',
+    [AdminAquariumController::class, 'create']
+)->name('aquariums.create');
+
+Route::post(
+    '/aquariums',
+    [AdminAquariumController::class, 'store']
+)->name('aquariums.store');
+Route::get(
+    '/aquariums/{aquarium}/edit',
+    [AdminAquariumController::class, 'edit']
+)->name('aquariums.edit');
+
+Route::put(
+    '/aquariums/{aquarium}',
+    [AdminAquariumController::class, 'update']
+)->name('aquariums.update');
+
+Route::delete(
+    '/aquariums/{aquarium}',
+    [AdminAquariumController::class, 'destroy']
+)->name('aquariums.destroy');
+
+Route::get(
+    '/staff',
+    [AdminStaffController::class, 'index']
+)->name('staff.index');
+
 });
 
 require __DIR__.'/auth.php';
