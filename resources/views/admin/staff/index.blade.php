@@ -36,7 +36,7 @@
 
                 </form>
 
-                <a href="#"
+                <a href="{{ route('admin.staff.create') }}"
                     class="
                         px-6
                         py-3
@@ -121,7 +121,7 @@
 
                         <div class="flex justify-center gap-2">
 
-                            <a href="#"
+                            <a href="{{ route('admin.staff.edit', $staff->id) }}"
                                 class="
                                     px-4
                                     py-2

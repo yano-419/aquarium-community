@@ -208,6 +208,30 @@ Route::get(
     [AdminStaffController::class, 'index']
 )->name('staff.index');
 
+Route::get(
+    '/staff/create',
+    [AdminStaffController::class, 'create']
+)->name('staff.create');
+
+Route::post(
+    '/staff',
+    [AdminStaffController::class, 'store']
+)->name('staff.store');
+
+Route::get(
+    '/staff/{staff}/edit',
+    [AdminStaffController::class, 'edit']
+)->name('staff.edit');
+
+Route::put(
+    '/staff/{staff}',
+    [AdminStaffController::class, 'update']
+)->name('staff.update');
+
+Route::delete(
+    '/staff/{staff}',
+    [AdminStaffController::class, 'destroy']
+)->name('staff.destroy');
 });
 
 require __DIR__.'/auth.php';

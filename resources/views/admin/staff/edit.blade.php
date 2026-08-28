@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', '担当者登録')
+@section('title', '担当者編集')
 
 @section('header-title', '担当者管理')
 
@@ -10,8 +10,12 @@
 
     <div class="bg-white rounded-3xl shadow-lg p-12">
 
-        <form action="{{ route('admin.staff.store') }}" method="POST">
+         <form action="{{ route('admin.staff.update', $staff->id) }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
             @csrf
+            @method('PUT')
 
             <div class="grid grid-cols-2 gap-12">
 
@@ -27,6 +31,7 @@
                         <input
                             type="text"
                             name="name"
+                            value="{{ old('name', $staff->user->name) }}"
                             class="w-full border rounded-xl px-5 py-4 text-lg"
                         >
 
@@ -51,6 +56,7 @@
 
                                 <option
                                     value="{{ $aquarium->id }}"
+                                    {{ old('aquarium_id', $staff->aquarium_id) == $aquarium->id ? 'selected' : '' }}
                                 >
                                     {{ $aquarium->name }}
                                 </option>
@@ -68,9 +74,10 @@
                         </label>
 
                         <input
-                            type="password"
-                            name="password"
-                            class="w-full border rounded-xl px-5 py-4 text-lg"
+                           type="password"
+                           name="password"
+                           placeholder="変更する場合のみ入力"
+                           class="w-full border rounded-xl px-5 py-4 text-lg"
                         >
 
                     </div>
@@ -82,9 +89,10 @@
                         </label>
 
                         <input
-                            type="password"
-                            name="password_confirmation"
-                            class="w-full border rounded-xl px-5 py-4 text-lg"
+                          type="password"
+                          name="password_confirmation"
+                          placeholder="確認用"
+                          class="w-full border rounded-xl px-5 py-4 text-lg"
                         >
 
                     </div>
@@ -103,6 +111,7 @@
                         <input
                             type="email"
                             name="email"
+                            value="{{ old('email', $staff->user->email) }}"
                             class="w-full border rounded-xl px-5 py-4 text-lg"
                         >
 
@@ -135,7 +144,7 @@
                             name="memo"
                             rows="7"
                             class="w-full border rounded-xl px-5 py-4 text-lg"
-                        ></textarea>
+                        >{{ old('memo', $staff->memo) }}</textarea>
 
                     </div>
 
@@ -182,7 +191,7 @@
                         font-semibold
                     "
                 >
-                    登録
+                    更新
                 </button>
 
             </div>
