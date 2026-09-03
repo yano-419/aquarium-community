@@ -24,8 +24,7 @@
 
         <div class="absolute inset-0 flex items-center">
 
-            <a
-                href="{{ route('home') }}"
+            <a href="{{ route('home') }}"
                 class="text-white text-2xl font-bold pl-4"
             >
                 ←
@@ -229,16 +228,26 @@
 
                 </div>
 
-                <form action="{{ route('logout') }}" method="POST">
-    @csrf
+                <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
 
-    <button
-        type="submit"
-        class="border border-red-500 text-red-500 px-4 py-2 rounded-lg hover:bg-red-50"
-    >
-        ログアウト
-    </button>
-</form>
+                <button
+                    type="button"
+                    onclick="openLogoutModal()"
+                    class="
+                        flex items-center gap-3
+                        px-5 py-4 rounded-xl
+                        text-lg font-semibold transition
+                        border
+                        border-red-500
+                        text-red-500
+                        hover:bg-red-500
+                        hover:text-white
+                    "
+                >
+                    ログアウト
+                </button>
 
             </div>
 
@@ -248,7 +257,65 @@
 
 </div>
 
+<!-- ログアウト確認モーダル -->
+<div
+    id="logoutModal"
+    class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50"
+>
+
+    <div class="bg-white rounded-2xl p-6 w-80 shadow-xl">
+
+        <h3 class="text-lg font-bold text-center">
+            ログアウトしますか？
+        </h3>
+
+        <p class="text-sm text-gray-500 text-center mt-2">
+            ログアウトすると、再度ログインが必要になります。
+        </p>
+
+        <div class="flex gap-3 mt-6">
+
+            <button
+                type="button"
+                onclick="closeLogoutModal()"
+                class="flex-1 border border-gray-300 py-2 rounded-lg"
+            >
+                キャンセル
+            </button>
+
+            <button
+                type="button"
+                onclick="document.getElementById('logoutForm').submit()"
+                class="flex-1 bg-red-500 text-white py-2 rounded-lg"
+            >
+                ログアウト
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 @include('components.bottom-nav')
+
+<script>
+
+function openLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.remove('hidden');
+}
+
+function closeLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.add('hidden');
+}
+
+</script>
 
 </body>
 </html>

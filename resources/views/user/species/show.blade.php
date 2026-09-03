@@ -22,39 +22,35 @@
 
         <div class="absolute inset-0 bg-black/15"></div>
 
-      <div class="absolute inset-0 flex items-center">
+        @php
+            if (request()->query('from') === 'favorites') {
+                $backUrl = route('mypage.favorites');
+            } elseif (request()->query('from') === 'home') {
+                $backUrl = route('home');
+            } elseif (request()->query('from') === 'aquarium-species') {
+                $backUrl = route('aquarium.species', request()->query('aquarium'));
+            } elseif (request()->query('from') === 'area-species') {
+                $backUrl = route('areas.species', request()->query('area'));
+            } elseif (request()->query('from') === 'aquarium') {
+                $backUrl = route('aquariums.show', request()->query('aquarium'));
+            } else {
+                $backUrl = route('species.index');
+            }
+        @endphp
 
- @php
-    if (request()->query('from') === 'favorites') {
-        $backUrl = route('mypage.favorites');
-    } elseif (request()->query('from') === 'home') {
-    $backUrl = route('home');
-    } elseif (request()->query('from') === 'aquarium-species') {
-        $backUrl = route('aquarium.species', request()->query('aquarium'));
-    } elseif (request()->query('from') === 'area-species') {
-        $backUrl = route('areas.species', request()->query('area'));
-    } elseif (request()->query('from') === 'aquarium') {
-        $backUrl = route('aquariums.show', request()->query('aquarium'));
-    } else {
-        $backUrl = route('species.index');
-    }
-@endphp
+        <div class="absolute inset-0 flex items-center">
 
-<div class="absolute inset-0 flex items-center">
+            <a href="{{ $backUrl }}"
+               class="text-white text-2xl pl-4">
+                ←
+            </a>
 
-    <a href="{{ $backUrl }}"
-       class="text-white text-2xl pl-4">
-        ←
-    </a>
+            <h1 class="text-white text-2xl font-bold mx-auto pr-10">
+                生き物詳細
+            </h1>
 
-    <h1 class="text-white text-2xl font-bold mx-auto pr-10">
-        生き物詳細
-    </h1>
+        </div>
 
-</div>
-
-
-</div>
     </div>
 
     <!-- 本体 -->
@@ -156,101 +152,148 @@
 
                <div class="flex justify-between items-center mb-3">
 
-    <h3 class="font-bold text-lg">
-        展示している水族館
-    </h3>
+                    <h3 class="font-bold text-lg">
+                        展示している水族館
+                    </h3>
 
-    <a href="{{ route('species.aquariums', $species->id) }}"
-        class="text-blue-500 text-sm"
-    >
-        もっと見る >
-    </a>
+                    <a href="{{ route('species.aquariums', $species->id) }}"
+                        class="text-blue-500 text-sm"
+                    >
+                        もっと見る >
+                    </a>
 
-</div>
+                </div>
 
-     @forelse ($species->aquariums->take(3) as $aquarium)
+                @forelse ($species->aquariums->take(3) as $aquarium)
 
-    
-        <a href="{{ route('aquariums.show', $aquarium->id) }}"
-        class="flex items-center gap-3 bg-slate-100 rounded-xl p-3 mb-3"
-    >
+                    <a href="{{ route('aquariums.show', $aquarium->id) }}"
+                        class="
+                            flex
+                            items-center
+                            gap-3
+                            bg-slate-100
+                            rounded-xl
+                            p-3
+                            mb-3
 
-          <img
-            src="{{ asset($aquarium->image_path) }}"
-            alt="{{ $aquarium->name }}"
-            class="w-20 h-20 object-cover rounded-lg"
-        >
+                            hover:bg-white
+                            hover:shadow-xl
+                            hover:-translate-y-1
+                            hover:scale-[1.02]
+                            active:scale-[0.98]
 
-        <div class="flex-1">
+                            transition
+                            duration-200
+                        "
+                    >
 
-            <h3 class="font-bold">
-                {{ $aquarium->name }}
-            </h3>
+                        <img
+                            src="{{ asset($aquarium->image_path) }}"
+                            alt="{{ $aquarium->name }}"
+                            class="w-20 h-20 object-cover rounded-lg"
+                        >
 
-            <p class="text-sm text-gray-500 mt-1">
-                📍 {{ $aquarium->prefecture }}
-            </p>
+                        <div class="flex-1">
 
-        </div>
+                            <h3 class="font-bold">
+                                {{ $aquarium->name }}
+                            </h3>
 
-    </a>
+                            <p class="text-sm text-gray-500 mt-1">
+                                📍 {{ $aquarium->prefecture }}
+                            </p>
 
-@empty
+                        </div>
 
-    <p class="text-gray-500">
-        展示情報はありません
-    </p>
+                    </a>
 
-@endforelse
-<div class="mt-6">
+                @empty
 
-    <div class="flex justify-between items-center mb-3">
+                    <p class="text-gray-500">
+                        展示情報はありません
+                    </p>
 
-        <h3 class="font-bold text-lg">
-            展示エリア
-        </h3>
-
-        <a href="{{ route('species.areas', $species->id) }}"
-           class="text-blue-500 text-sm">
-            もっと見る >
-        </a>
-
-    </div>
-
-    @forelse ($species->areas->take(2) as $area)
-
-        <a href="{{ route('areas.show', $area->id) }}"
-           class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
-
-            <img
-                src="{{ asset($area->image_path) }}"
-                alt="{{ $area->name }}"
-                class="w-20 h-20 object-cover rounded-lg"
-            >
-
-            <div class="flex-1">
-
-                <h3 class="font-bold">
-                    {{ $area->name }}
-                </h3>
-
-                <p class="text-sm text-gray-500 mt-1">
-                    {{ $area->description }}
-                </p>
+                @endforelse
 
             </div>
 
-        </a>
+            <!-- 展示エリア -->
+            <div class="mt-6">
 
-    @empty
+                <div class="flex justify-between items-center mb-3">
 
-        <p class="text-gray-500">
-            展示エリア情報はありません
-        </p>
+                    <h3 class="font-bold text-lg">
+                        展示エリア
+                    </h3>
 
-    @endforelse
+                    <a href="{{ route('species.areas', $species->id) }}"
+                        class="text-blue-500 text-sm"
+                    >
+                        もっと見る >
+                    </a>
 
-</div>
+                </div>
+
+                @forelse ($areas as $area)
+
+                    <a href="{{ route('areas.show', ['area' => $area->id, 'from' => 'species']) }}"
+                        class="
+                            flex
+                            gap-3
+                            bg-slate-100
+                            rounded-xl
+                            p-3
+                            mb-3
+
+                            hover:bg-white
+                            hover:shadow-xl
+                            hover:-translate-y-1
+                            hover:scale-[1.02]
+                            active:scale-[0.98]
+
+                            transition
+                            duration-200
+                        "
+                    >
+
+                        <img
+                            src="{{ asset($area->image_path) }}"
+                            alt="{{ $area->name }}"
+                            class="
+                                w-20
+                                h-20
+                                object-cover
+                                rounded-lg
+                            "
+                        >
+
+                        <div class="flex-1">
+
+                            <h3 class="font-bold">
+                                {{ $area->name }}
+                            </h3>
+
+                            <p
+                                class="
+                                    text-sm
+                                    text-gray-500
+                                    mt-1
+                                "
+                            >
+                                {{ $area->description }}
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                @empty
+
+                    <p class="text-gray-500">
+                        展示エリア情報はありません
+                    </p>
+
+                @endforelse
 
             </div>
 

@@ -44,18 +44,28 @@ class AquariumController extends Controller
     );
 }
 
-    public function show(Aquarium $aquarium)
+   public function show(Aquarium $aquarium)
     {
-    $aquarium->load([
-        'aquariumSpecies',
-        'areas',
-    ]);
+    $areas = $aquarium->areas()
+        ->inRandomOrder()
+        ->take(3)
+        ->get();
+
+    $species = $aquarium->aquariumSpecies()
+        ->inRandomOrder()
+        ->take(3)
+        ->get();
 
     return view(
-    'user.aquariums.show',
-    compact('aquarium')
+        'user.aquariums.show',
+        compact(
+            'aquarium',
+            'areas',
+            'species'
+        )
     );
     }
+
     public function species(Aquarium $aquarium)
     {
     $aquarium->load(

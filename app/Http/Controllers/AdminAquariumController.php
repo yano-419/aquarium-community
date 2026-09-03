@@ -52,6 +52,7 @@ class AdminAquariumController extends Controller
    {
     $request->validate([
         'name' => ['required', 'max:100'],
+        'prefecture' => ['required', 'max:50'],
         'address' => ['required'],
         'official_url' => ['nullable', 'url'],
         'description' => ['required'],
@@ -64,7 +65,7 @@ class AdminAquariumController extends Controller
 
     Aquarium::create([
         'name' => $request->name,
-        'prefecture' => '',
+        'prefecture' => $request->prefecture,
         'address' => $request->address,
         'description' => $request->description,
         'official_url' => $request->official_url,
@@ -94,6 +95,7 @@ class AdminAquariumController extends Controller
     {
     $request->validate([
         'name' => ['required', 'max:100'],
+        'prefecture' => ['required', 'max:50'],
         'address' => ['required'],
         'official_url' => ['nullable', 'url'],
         'description' => ['required'],
@@ -101,6 +103,7 @@ class AdminAquariumController extends Controller
 
     $data = [
         'name' => $request->name,
+        'prefecture' => $request->prefecture,
         'address' => $request->address,
         'official_url' => $request->official_url,
         'description' => $request->description,

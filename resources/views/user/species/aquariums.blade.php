@@ -49,7 +49,23 @@
         @forelse ($species->aquariums as $aquarium)
 
              <a href="{{ route('aquariums.show', $aquarium->id) }}"
-                class="flex gap-3 bg-white rounded-xl shadow p-3 mb-4"
+                class="
+                    flex
+                    gap-3
+                    bg-white
+                    rounded-xl
+                    shadow
+                    p-3
+                    mb-4
+
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-[1.02]
+                    active:scale-[0.98]
+
+                    transition
+                    duration-200
+                "
             >
 
                 <img

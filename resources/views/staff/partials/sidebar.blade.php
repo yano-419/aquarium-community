@@ -21,8 +21,8 @@
     <nav class="p-4 space-y-3">
 
         <!-- ダッシュボード -->
-        <a
-            href="{{ route('staff.dashboard') }}"
+        
+        <a  href="{{ route('staff.dashboard') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('staff.dashboard')
@@ -41,8 +41,8 @@
         </a>
 
         <!-- 展示エリア管理 -->
-        <a
-            href="{{ route('staff.areas.index') }}"
+        
+        <a  href="{{ route('staff.areas.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('staff.areas.*')
@@ -61,8 +61,8 @@
         </a>
 
         <!-- 生き物管理 -->
-        <a
-            href="{{ route('staff.species.index') }}"
+        
+        <a  href="{{ route('staff.species.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('staff.species.*')
@@ -81,8 +81,8 @@
         </a>
 
         <!-- プロフィール -->
-        <a
-            href="#"
+        
+        <a  href="{{ route('staff.profile.show') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('profile.*')
@@ -101,8 +101,8 @@
         </a>
 
         <!-- ユーザー画面 -->
-        <a
-            href="{{ route('home') }}"
+        
+        <a  href="{{ route('home') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 hover:bg-sky-500
@@ -118,39 +118,97 @@
         </a>
 
         <!-- ログアウト -->
-    <form action="{{ route('logout') }}" method="POST">
-    @csrf
+        <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
+            @csrf
+        </form>
 
-    <button
-        type="submit"
-        class="
-            w-full
-            flex
-            items-center
-            gap-3
-            px-5
-            py-4
-            rounded-xl
-            text-lg
-            font-semibold
-            transition
-            hover:bg-sky-500
-        "
-    >
-       <img
-            src="{{ asset('images/icons/logout.png') }}"
-            alt="ログアウト"
-            class="w-8 h-8"
+        <button
+            type="button"
+            onclick="openLogoutModal()"
+            class="
+                w-full
+                flex
+                items-center
+                gap-3
+                px-5
+                py-4
+                rounded-xl
+                text-lg
+                font-semibold
+                transition
+                hover:bg-sky-500
+            "
         >
+           <img
+                src="{{ asset('images/icons/logout.png') }}"
+                alt="ログアウト"
+                class="w-8 h-8"
+            >
 
-        <span>
-            ログアウト
-        </span>
+            <span>
+                ログアウト
+            </span>
 
-    </button>
-</form>
+        </button>
+
     </nav>
 
 </aside>
-            
-          
+
+<!-- ログアウト確認モーダル -->
+<div
+    id="logoutModal"
+    class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50"
+>
+
+    <div class="bg-white rounded-3xl p-14 w-[560px] shadow-2xl">
+
+        <h3 class="text-3xl font-bold text-center text-gray-800">
+            ログアウトしますか？
+        </h3>
+
+        <p class="text-lg text-gray-500 text-center mt-4">
+            ログアウトすると、再度ログインが必要になります。
+        </p>
+
+        <div class="flex gap-6 mt-10">
+
+            <button
+                type="button"
+                onclick="closeLogoutModal()"
+                class="flex-1 border border-gray-300 py-4 rounded-xl text-xl text-gray-700"
+            >
+                キャンセル
+            </button>
+
+            <button
+                type="button"
+                onclick="document.getElementById('logoutForm').submit()"
+                class="flex-1 bg-red-500 text-white py-4 rounded-xl text-xl hover:bg-red-600"
+            >
+                ログアウト
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function openLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.remove('hidden');
+}
+
+function closeLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.add('hidden');
+}
+
+</script>

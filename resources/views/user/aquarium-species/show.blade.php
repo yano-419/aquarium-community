@@ -75,7 +75,7 @@
 
                 <p>
                     <span class="font-bold">説明：</span>
-                    {{ $aquariumSpecies->dictionary_description }}
+                    {{ $aquariumSpecies->description }}
                 </p>
 
             </div>

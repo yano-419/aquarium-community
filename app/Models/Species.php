@@ -35,12 +35,5 @@ class Species extends Model
         return $this->hasMany(Favorite::class);
     }
 
-    public function areas()
-    {
-    return $this->belongsToMany(
-        Area::class,
-        'area_species'
-    );
-    }
 }
 

@@ -41,7 +41,17 @@
                     'post' => $post->id,
                     'from' => 'posts'
                 ]) }}"
-                class="block"
+                class="
+                    block
+
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-[1.01]
+                    active:scale-[0.98]
+
+                    transition
+                    duration-200
+                "
             >
 
                 <div class="bg-white rounded-xl p-4 border">
@@ -95,7 +105,7 @@
 
     <!-- 投稿作成ボタン -->
     <a href="{{ route('posts.create') }}"
-        class="fixed bottom-24 w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center text-3xl shadow-lg z-50"
+        class="fixed bottom-24 w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center text-3xl shadow-lg z-50 hover:bg-blue-600 hover:scale-105 active:scale-95 transition duration-200"
         style="right: calc(50% - 180px);"
     >
         +

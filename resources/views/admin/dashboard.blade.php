@@ -79,77 +79,125 @@
 
     </div>
 
-    <div class="grid grid-cols-2 gap-6">
+   <div class="grid grid-cols-2 gap-8 max-w-5xl mx-auto">
 
-        <a href="#"
-            class="
-                bg-blue-50
-                border
-                border-blue-100
-                rounded-3xl
-                shadow-lg
-                p-8
-                hover:bg-blue-100
-                transition
-            "
-        >
-            <h3 class="text-2xl font-bold text-blue-700">
-                水族館管理
-            </h3>
-        </a>
+    
+    <a  href="{{ route('admin.aquariums.index') }}"
+        class="
+            bg-blue-50
+            border border-blue-100
+            rounded-3xl
+            shadow-lg
+            p-10
+            text-center
+            hover:bg-blue-100
+            hover:scale-105
+            transition
+        "
+    >
 
-        <a href="#"
-            class="
-                bg-green-50
-                border
-                border-green-100
-                rounded-3xl
-                shadow-lg
-                p-8
-                hover:bg-green-100
-                transition
-            "
-        >
-            <h3 class="text-2xl font-bold text-green-700">
-                担当者管理
-            </h3>
-        </a>
+        <div class="w-20 h-20 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center">
+            <img
+                src="{{ asset('images/icons/aquarium-manage.png') }}"
+                alt="水族館管理"
+                class="w-11 h-11 object-contain"
+            >
+        </div>
 
-        <a href="#"
-            class="
-                bg-orange-50
-                border
-                border-orange-100
-                rounded-3xl
-                shadow-lg
-                p-8
-                hover:bg-orange-100
-                transition
-            "
-        >
-            <h3 class="text-2xl font-bold text-orange-700">
-                図鑑管理
-            </h3>
-        </a>
+        <h3 class="text-2xl font-bold text-blue-700">
+            水族館管理
+        </h3>
 
-        <a href="#"
-            class="
-                bg-purple-50
-                border
-                border-purple-100
-                rounded-3xl
-                shadow-lg
-                p-8
-                hover:bg-purple-100
-                transition
-            "
-        >
-            <h3 class="text-2xl font-bold text-purple-700">
-                未登録生物管理
-            </h3>
-        </a>
+    </a>
 
-    </div>
+    
+    <a  href="{{ route('admin.staff.index') }}"
+        class="
+            bg-green-50
+            border border-green-100
+            rounded-3xl
+            shadow-lg
+            p-10
+            text-center
+            hover:bg-green-100
+            hover:scale-105
+            transition
+        "
+    >
+
+        <div class="w-20 h-20 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center">
+            <img
+                src="{{ asset('images/icons/staff-manage.png') }}"
+                alt="担当者管理"
+                class="w-11 h-11 object-contain"
+            >
+        </div>
+
+        <h3 class="text-2xl font-bold text-green-700">
+            担当者管理
+        </h3>
+
+    </a>
+
+    
+    <a  href="{{ route('admin.species.index') }}"
+        class="
+            bg-orange-50
+            border border-orange-100
+            rounded-3xl
+            shadow-lg
+            p-10
+            text-center
+            hover:bg-orange-100
+            hover:scale-105
+            transition
+        "
+    >
+
+        <div class="w-20 h-20 mx-auto mb-4 bg-orange-500 rounded-full flex items-center justify-center">
+            <img
+                src="{{ asset('images/icons/encyclopedia-manage.png') }}"
+                alt="図鑑管理"
+                class="w-11 h-11 object-contain"
+            >
+        </div>
+
+        <h3 class="text-2xl font-bold text-orange-700">
+            図鑑管理
+        </h3>
+
+    </a>
+
+    
+    <a   href="{{ route('admin.unregistered-species.index') }}"
+        class="
+            bg-purple-50
+            border border-purple-100
+            rounded-3xl
+            shadow-lg
+            p-10
+            text-center
+            hover:bg-purple-100
+            hover:scale-105
+            transition
+        "
+    >
+
+        <div class="w-20 h-20 mx-auto mb-4 bg-purple-500 rounded-full flex items-center justify-center">
+            <img
+                src="{{ asset('images/icons/unregistered-species.png') }}"
+                alt="未登録生物管理"
+                class="w-11 h-11 object-contain"
+            >
+        </div>
+
+        <h3 class="text-2xl font-bold text-purple-700">
+            未登録生物管理
+        </h3>
+
+    </a>
+
+</div>
 
 </div>
 

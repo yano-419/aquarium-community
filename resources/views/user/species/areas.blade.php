@@ -44,7 +44,7 @@
             {{ $species->name }} の展示エリア
         </h2>
 
-        @forelse ($species->areas as $area)
+        @forelse ($areas as $area)
 
             <a href="{{ route('areas.show', $area->id) }}?from=species"
                class="flex gap-3 bg-white rounded-xl shadow p-3 mb-4">

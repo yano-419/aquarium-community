@@ -42,13 +42,21 @@
     <!-- メニュー -->
     <div class="grid grid-cols-2 gap-3 px-3">
        <a href="{{ route('aquariums.index') }}" class="bg-gradient-to-br from-sky-400 to-blue-500 text-white rounded-3xl p-5 shadow-lg hover:scale-105 transition">
-            <div class="text-4xl text-center mb-3">🏢</div>
+            <img
+    src="{{ asset('images/icons/aquarium_home.png') }}"
+    alt="水族館一覧"
+    class="w-12 h-12 mx-auto mb-3"
+    >
             <h3 class="text-xl font-bold text-center">水族館一覧</h3>
             <p class="text-center text-sm mt-2">全国の水族館を探す</p>
         </a>
 
         <a href="{{ route('posts.index') }}" class="bg-gradient-to-br from-sky-400 to-blue-500 text-white rounded-3xl p-5 shadow-lg hover:scale-105 transition">
-            <div class="text-4xl text-center mb-3">👥</div>
+            <img
+    src="{{ asset('images/icons/post_home.png') }}"
+    alt="みんなの投稿"
+    class="w-12 h-12 mx-auto mb-3"
+    >
             <h3 class="text-xl font-bold text-center">みんなの投稿</h3>
             <p class="text-center text-sm mt-2">みんなの投稿を見る</p>
         </a>

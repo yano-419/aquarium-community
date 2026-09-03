@@ -78,7 +78,17 @@ class="text-white text-2xl font-bold">
 
                 @forelse ($area->species->take(3) as $species)
 
-                    <a href="{{ route('aquarium-species.show', $species->id) }}">
+                    
+                    <a  href="{{ route('species.show', ['species' => $species->id, 'from' => 'area']) }}"
+                        class="
+                            hover:shadow-xl
+                            hover:-translate-y-1
+                            hover:scale-[1.03]
+                            active:scale-[0.98]
+                            transition
+                            duration-200
+                        "
+                    >
 
                         <img
                             src="{{ asset($species->image_path) }}"

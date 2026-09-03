@@ -21,8 +21,8 @@
     <nav class="p-4 space-y-3">
 
         <!-- ダッシュボード -->
-        <a
-            href="{{ route('admin.dashboard') }}"
+        
+        <a  href="{{ route('admin.dashboard') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('admin.dashboard')
@@ -41,8 +41,8 @@
         </a>
 
         <!-- 水族館管理 -->
-        <a
-            href="{{ route('admin.aquariums.index') }}"
+        
+        <a  href="{{ route('admin.aquariums.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('admin.aquariums.*')
@@ -61,8 +61,8 @@
         </a>
 
         <!-- 担当者管理 -->
-        <a
-            href="{{ route('admin.staff.index') }}"
+        
+        <a  href="{{ route('admin.staff.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('admin.staff.*')
@@ -81,8 +81,8 @@
         </a>
 
         <!-- 図鑑管理 -->
-        <a
-            href="#"
+        
+        <a  href="{{ route('admin.species.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('admin.species.*')
@@ -101,8 +101,8 @@
         </a>
 
         <!-- 未登録生物管理 -->
-        <a
-            href="#"
+        
+        <a  href="{{ route('admin.unregistered-species.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('admin.species.unregistered')
@@ -121,8 +121,8 @@
         </a>
 
         <!-- 投稿管理 -->
-        <a
-            href="#"
+        
+        <a  href="{{ route('admin.posts.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 {{ request()->routeIs('admin.posts.*')
@@ -141,8 +141,8 @@
         </a>
 
         <!-- 一般ユーザー画面 -->
-        <a
-            href="{{ route('home') }}"
+        
+        <a  href="{{ route('home') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 hover:bg-sky-500
@@ -158,8 +158,8 @@
         </a>
 
         <!-- プロフィール -->
-        <a
-            href="#"
+        
+        <a  href="{{ route('admin.profile.show') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
                 hover:bg-sky-500
@@ -175,38 +175,97 @@
         </a>
 
         <!-- ログアウト -->
-        <form action="{{ route('logout') }}" method="POST">
+        <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
             @csrf
-
-            <button
-                type="submit"
-                class="
-                    w-full
-                    flex
-                    items-center
-                    gap-3
-                    px-5
-                    py-4
-                    rounded-xl
-                    text-lg
-                    font-semibold
-                    transition
-                    hover:bg-sky-500
-                "
-            >
-               <img
-                    src="{{ asset('images/icons/logout.png') }}"
-                    alt="ログアウト"
-                    class="w-8 h-8"
-                >
-
-                <span>
-                    ログアウト
-                </span>
-
-            </button>
         </form>
+
+        <button
+            type="button"
+            onclick="openLogoutModal()"
+            class="
+                w-full
+                flex
+                items-center
+                gap-3
+                px-5
+                py-4
+                rounded-xl
+                text-lg
+                font-semibold
+                transition
+                hover:bg-sky-500
+            "
+        >
+           <img
+                src="{{ asset('images/icons/logout.png') }}"
+                alt="ログアウト"
+                class="w-8 h-8"
+            >
+
+            <span>
+                ログアウト
+            </span>
+
+        </button>
 
     </nav>
 
 </aside>
+
+<!-- ログアウト確認モーダル -->
+<div
+    id="logoutModal"
+    class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50"
+>
+
+    <div class="bg-white rounded-3xl p-14 w-[560px] shadow-2xl">
+
+        <h3 class="text-3xl font-bold text-center text-gray-800">
+            ログアウトしますか？
+        </h3>
+
+        <p class="text-lg text-gray-500 text-center mt-4">
+            ログアウトすると、再度ログインが必要になります。
+        </p>
+
+        <div class="flex gap-6 mt-10">
+
+            <button
+                type="button"
+                onclick="closeLogoutModal()"
+                class="flex-1 border border-gray-300 py-4 rounded-xl text-xl text-gray-700"
+            >
+                キャンセル
+            </button>
+
+            <button
+                type="button"
+                onclick="document.getElementById('logoutForm').submit()"
+                class="flex-1 bg-red-500 text-white py-4 rounded-xl text-xl hover:bg-red-600"
+            >
+                ログアウト
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function openLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.remove('hidden');
+}
+
+function closeLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.add('hidden');
+}
+
+</script>

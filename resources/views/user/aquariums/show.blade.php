@@ -98,14 +98,30 @@
 
 </div>
 
-@forelse ($aquarium->areas->take(3) as $area)
+@forelse ($areas as $area)
 
   <a href="{{ route('areas.show', [
         'area' => $area->id,
         'from' => 'aquarium',
         'aquarium' => $aquarium->id
     ]) }}"
-       class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
+       class="
+        flex
+        gap-3
+        bg-slate-100
+        rounded-xl
+        p-3
+        mb-3
+
+        hover:bg-white
+        hover:shadow-xl
+        hover:-translate-y-1
+        hover:scale-[1.02]
+        active:scale-[0.98]
+
+        transition
+        duration-200
+        ">
 
     <img src="{{ asset($area->image_path) }}"
         alt="{{ $area->name }}"
@@ -150,26 +166,40 @@
 
 </div>
 
-       @forelse (
-    $aquarium->aquariumSpecies->take(3)
-    as $animal)
+      @forelse ($species as $item)
 
-   <a href="{{ route('aquarium-species.show', $animal->id) }}"
-   class="flex gap-3 bg-slate-100 rounded-xl p-3 mb-3">
+   <a href="{{ route('aquarium-species.show', $item->id) }}"
+   class="
+        flex
+        gap-3
+        bg-slate-100
+        rounded-xl
+        p-3
+        mb-3
 
-        <img src="{{ asset($animal->image_path) }}"
-            alt="{{ $animal->name }}"
+        hover:bg-white
+        hover:shadow-xl
+        hover:-translate-y-1
+        hover:scale-[1.02]
+        active:scale-[0.98]
+
+        transition
+        duration-200
+    ">
+
+        <img src="{{ asset($item->image_path) }}"
+            alt="{{ $item->name }}"
             class="w-20 h-20 object-cover rounded-lg"
         >
 
         <div class="flex-1">
 
             <h3 class="font-bold">
-                {{ $animal->name }}
+                {{$item->name }}
             </h3>
 
             <p class="text-sm text-gray-500 mt-1">
-                {{ $animal->classification }}
+                {{ $item->classification }}
             </p>
 
         </div>

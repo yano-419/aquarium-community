@@ -78,10 +78,10 @@ class AdminStaffController extends Controller
     ]);
 
     AquariumStaff::create([
-        'aquarium_id' => $request->aquarium_id,
-        'user_id' => $user->id,
+     'aquarium_id' => $request->aquarium_id,
+     'user_id' => $user->id,
+     'memo' => $request->memo,
     ]);
-
     return redirect()
         ->route('admin.staff.index')
         ->with(
@@ -141,7 +141,8 @@ class AdminStaffController extends Controller
     }
 
     $staff->update([
-        'aquarium_id' => $request->aquarium_id,
+     'aquarium_id' => $request->aquarium_id,
+     'memo' => $request->memo,
     ]);
 
     return redirect()

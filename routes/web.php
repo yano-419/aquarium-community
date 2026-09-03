@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\AdminUnregisteredSpeciesController;
 use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AdminAquariumController;
 use App\Http\Controllers\AquariumSpeciesController;
+use App\Http\Controllers\AdminSpeciesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +21,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\StaffAreaController;
 use App\Http\Controllers\StaffAquariumSpeciesController;
+use App\Http\Controllers\StaffProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -168,6 +173,11 @@ Route::middleware(['auth', 'role:staff'])
     'species',
     StaffAquariumSpeciesController::class
   );
+
+  Route::get(
+    '/profile',
+    [StaffProfileController::class, 'show']
+)->name('profile.show');
 });
 
 // システム管理者
@@ -232,6 +242,77 @@ Route::delete(
     '/staff/{staff}',
     [AdminStaffController::class, 'destroy']
 )->name('staff.destroy');
+
+Route::get(
+    '/species',
+    [AdminSpeciesController::class, 'index']
+)->name('species.index');
+
+Route::get(
+    '/species/create',
+    [AdminSpeciesController::class, 'create']
+)->name('species.create');
+
+Route::post(
+    '/species',
+    [AdminSpeciesController::class, 'store']
+)->name('species.store');
+
+Route::get(
+    '/species/{species}/edit',
+    [AdminSpeciesController::class, 'edit']
+)->name('species.edit');
+
+Route::put(
+    '/species/{species}',
+    [AdminSpeciesController::class, 'update']
+)->name('species.update');
+
+Route::delete(
+    '/species/{species}',
+    [AdminSpeciesController::class, 'destroy']
+)->name('species.destroy');
+
+Route::get(
+    '/unregistered-species',
+    [AdminUnregisteredSpeciesController::class, 'index']
+)->name('unregistered-species.index');
+
+Route::get(
+    '/unregistered-species/{aquariumSpecies}/approve',
+    [AdminUnregisteredSpeciesController::class, 'approve']
+)->name('species.unregistered.approve');
+
+Route::post(
+    '/unregistered-species/{aquariumSpecies}/approve',
+    [AdminUnregisteredSpeciesController::class, 'store']
+)->name('species.unregistered.store');
+
+Route::delete(
+    '/unregistered-species/{aquariumSpecies}',
+    [AdminUnregisteredSpeciesController::class, 'destroy']
+)->name('unregistered-species.destroy');
+
+Route::get(
+    '/posts',
+    [AdminPostController::class, 'index']
+)->name('posts.index');
+
+Route::get(
+    '/posts/{post}',
+    [AdminPostController::class, 'show']
+)->name('posts.show');
+
+Route::delete(
+    '/posts/{post}',
+    [AdminPostController::class, 'destroy']
+)->name('posts.destroy');
+
+Route::get(
+    '/profile',
+    [AdminProfileController::class, 'show']
+)->name('profile.show');
+
 });
 
 require __DIR__.'/auth.php';

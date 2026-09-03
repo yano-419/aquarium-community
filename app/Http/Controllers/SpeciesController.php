@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Species;
 
 class SpeciesController extends Controller
@@ -27,7 +28,28 @@ class SpeciesController extends Controller
 
     public function show(Species $species)
     {
-        return view('user.species.show', compact('species'));
+    $areas = Area::whereHas(
+        'species',
+        function ($query) use ($species) {
+
+            $query->where(
+                'species_id',
+                $species->id
+            );
+
+        }
+    )
+    ->with('aquarium')
+    ->take(2)
+    ->get();
+
+    return view(
+        'user.species.show',
+        compact(
+            'species',
+            'areas'
+        )
+    );
     }
 
     public function aquariums(Species $species)
@@ -40,13 +62,28 @@ class SpeciesController extends Controller
     );
     }
 
-    public function areas(Species $species)
+   public function areas(Species $species)
     {
-    $species->load('areas.aquarium');
+    $areas = Area::whereHas(
+        'species',
+        function ($query) use ($species) {
+
+            $query->where(
+                'species_id',
+                $species->id
+            );
+
+        }
+    )
+    ->with('aquarium')
+    ->get();
 
     return view(
         'user.species.areas',
-        compact('species')
+        compact(
+            'species',
+            'areas'
+        )
     );
     }
 }

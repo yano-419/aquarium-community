@@ -37,6 +37,36 @@
 
                     </div>
 
+                    <div class="mb-8">
+
+                        <label class="block font-bold mb-2 text-lg">
+                            都道府県
+                        </label>
+
+                        <select
+                            name="prefecture"
+                            class="w-full border rounded-xl px-5 py-4 text-lg"
+                        >
+
+                            <option value="">
+                                選択してください
+                            </option>
+
+                            @foreach(config('prefectures') as $prefecture)
+
+                                <option
+                                    value="{{ $prefecture }}"
+                                    {{ old('prefecture', $aquarium->prefecture) == $prefecture ? 'selected' : '' }}
+                                >
+                                    {{ $prefecture }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
                     <div class="mb-6">
 
                         <label class="block font-bold mb-2 text-lg">

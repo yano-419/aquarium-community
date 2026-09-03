@@ -45,15 +45,29 @@
         <h2 class="text-xl font-bold mb-4">
             {{ $aquarium->name }} の生き物
         </h2>
-@forelse (
-    $aquarium->aquariumSpecies
-    as $animal
-)
 
-    <a href="{{ route('aquarium-species.show', $animal->id) ,}}"
-       class="flex gap-3 bg-white rounded-xl shadow p-3 mb-4">
+        @forelse (
+            $aquarium->aquariumSpecies
+            as $animal
+        )
 
-
+            <a href="{{ route('aquarium-species.show', $animal->id) }}"
+                class="
+                    flex
+                    gap-3
+                    bg-white
+                    rounded-xl
+                    shadow
+                    p-3
+                    mb-4
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-[1.02]
+                    active:scale-[0.98]
+                    transition
+                    duration-200
+                "
+            >
 
                 <img src="{{ asset($animal->image_path) }}"
                     alt="{{ $animal->name }}"

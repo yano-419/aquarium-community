@@ -24,7 +24,7 @@
 
         <div class="absolute inset-0 flex items-center">
 
-              <a href="{{ route('home') }}"class="text-white text-2xl font-bold pl-4">
+              <a href="{{ route('home') }}" class="text-white text-2xl font-bold pl-4">
                ←
               </a>
 
@@ -65,7 +65,22 @@
 
     @foreach ($species as $animal)
 
-        <a href="{{ route('species.show', $animal->id) }}" class="bg-white rounded-xl shadow p-2">
+        <a href="{{ route('species.show', $animal->id) }}"
+       class="
+        bg-white
+        rounded-xl
+        shadow
+        p-2
+
+        hover:shadow-xl
+        hover:-translate-y-1
+        hover:scale-[1.03]
+        active:scale-[0.98]
+
+        transition
+        duration-200
+    "
+>
 
             <img
                 src="{{ asset($animal->image_path) }}"

@@ -8,9 +8,10 @@ class AquariumStaff extends Model
 {
     protected $table = 'aquarium_staffs';
 
-    protected $fillable = [
-        'aquarium_id',
-        'user_id',
+   protected $fillable = [
+    'aquarium_id',
+    'user_id',
+    'memo',
     ];
 
     public function aquarium()

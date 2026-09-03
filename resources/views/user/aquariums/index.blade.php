@@ -64,10 +64,6 @@
          全 {{ count($aquariums) }} 件
      </p>
 
-     <p class="text-gray-500 text-sm">
-         おすすめ順
-     </p>
-
      </div>
 
     </div>
@@ -77,7 +73,21 @@
 
     @foreach ($aquariums as $aquarium)
 
-    <a href="{{ route('aquariums.show', $aquarium->id) }}" class="block bg-white rounded-2xl shadow overflow-hidden p-3">
+    <a href="{{ route('aquariums.show', $aquarium->id) }}"
+        class="
+            bg-white
+            rounded-2xl
+            shadow
+            overflow-hidden
+            p-3
+            block
+            hover:shadow-xl
+            hover:-translate-y-1
+            hover:scale-[1.02]
+            transition
+            duration-200
+        "
+    >
 
         <div class="flex items-center gap-3">
 

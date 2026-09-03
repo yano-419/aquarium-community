@@ -10,6 +10,23 @@
 
     <div class="bg-white rounded-3xl shadow-lg p-12">
 
+    @if ($errors->any())
+
+    <div class="mb-6 p-4 bg-red-100 text-red-600 rounded-xl">
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
         <form action="{{ route('admin.staff.store') }}" method="POST">
             @csrf
 
