@@ -60,7 +60,23 @@
         </div>
 
         <!-- 投稿数 -->
-        <a href="{{ route('mypage.posts') }}" class="block bg-white rounded-xl p-4 shadow">
+        <a href="{{ route('mypage.posts') }}"
+            class="
+                block
+                bg-white
+                rounded-xl
+                p-4
+                shadow
+
+                hover:shadow-xl
+                hover:-translate-y-1
+                hover:scale-105
+                active:scale-95
+
+                transition
+                duration-200
+            "
+        >
 
             <h2 class="font-bold text-lg mb-2">
                 投稿数
@@ -73,7 +89,23 @@
         </a>
 
         <!-- お気に入り数 -->
-        <a href="{{ route('mypage.favorites') }}" class="block bg-white rounded-xl p-4 shadow">
+        <a href="{{ route('mypage.favorites') }}"
+            class="
+                block
+                bg-white
+                rounded-xl
+                p-4
+                shadow
+
+                hover:shadow-xl
+                hover:-translate-y-1
+                hover:scale-105
+                active:scale-95
+
+                transition
+                duration-200
+            "
+        >
 
             <h2 class="font-bold text-lg mb-2">
                 お気に入り数
@@ -115,7 +147,21 @@
                 'species' => $favorite->species->id,
                 'from' => 'favorites'
             ]) }}"
-            class="bg-white rounded-xl shadow p-2"
+            class="
+                block
+                bg-white
+                rounded-xl
+                shadow
+                p-2
+
+                hover:shadow-xl
+                hover:-translate-y-1
+                hover:scale-105
+                active:scale-95
+
+                transition
+                duration-200
+            "
             >
 
             <img
@@ -170,7 +216,19 @@
                         'post' => $post->id,
                         'from' => 'mypage'
                     ]) }}"
-                    class="flex items-center gap-3 border-b py-3"
+                    class="
+                        flex
+                        items-center
+                        gap-3
+                        border-b
+                        py-3
+
+                        hover:bg-slate-50
+                        active:scale-95
+
+                        transition
+                        duration-200
+                    "
                 >
 
                     @if ($post->image_path)

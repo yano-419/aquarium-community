@@ -39,7 +39,23 @@
             <a href="{{ route('posts.show', [
             'post' => $post->id,
            'from' => 'mypage'
-           ]) }}" class="block bg-white rounded-xl shadow p-4">
+           ]) }}"
+                class="
+                    block
+                    bg-white
+                    rounded-xl
+                    shadow
+                    p-4
+
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-105
+                    active:scale-95
+
+                    transition
+                    duration-200
+                "
+            >
 
                 <div class="flex items-center gap-3">
 

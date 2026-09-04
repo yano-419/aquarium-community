@@ -47,7 +47,24 @@
         @forelse ($areas as $area)
 
             <a href="{{ route('areas.show', $area->id) }}?from=species"
-               class="flex gap-3 bg-white rounded-xl shadow p-3 mb-4">
+                class="
+                    flex
+                    gap-3
+                    bg-white
+                    rounded-xl
+                    shadow
+                    p-3
+                    mb-4
+
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-105
+                    active:scale-95
+
+                    transition
+                    duration-200
+                "
+            >
 
                 <img
                     src="{{ asset($area->image_path) }}"

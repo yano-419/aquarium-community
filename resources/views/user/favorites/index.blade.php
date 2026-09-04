@@ -24,8 +24,8 @@
 
         <div class="absolute inset-0 flex items-center">
 
-            <a
-                href="{{ route('mypage') }}"
+            
+            <a  href="{{ route('mypage') }}"
                 class="text-white text-2xl pl-4"
             >
                 ←
@@ -44,10 +44,6 @@
         全 {{ $favorites->count() }} 件
     </p>
 
-    <p class="text-sm text-gray-500">
-        お気に入り生き物
-    </p>
-
 </div>
     <!-- 一覧 -->
     <div class="p-4 space-y-3">
@@ -57,7 +53,25 @@
             <a href="{{ route('species.show', [
     'species' => $favorite->species->id,
     'from' => 'favorites'
-]) }}" class="flex items-center gap-3 bg-white rounded-xl shadow p-4">
+]) }}"
+                class="
+                    flex
+                    items-center
+                    gap-3
+                    bg-white
+                    rounded-xl
+                    shadow
+                    p-4
+
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-105
+                    active:scale-95
+
+                    transition
+                    duration-200
+                "
+            >
 
                 <img
                     src="{{ asset($favorite->species->image_path) }}"
