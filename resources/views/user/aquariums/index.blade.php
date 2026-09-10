@@ -23,17 +23,37 @@
     <div class="absolute inset-0 bg-black/10"></div>
 
     <!-- タイトル -->
-    <div class="absolute inset-0 flex items-center justify-between px-4">
+    <div class="absolute inset-0 flex items-center px-4">
 
-        <a href="{{ route('home') }}" class="text-white text-2xl font-bold">
-            ←
+        <a href="{{ route('home') }}"
+            class="text-white text-2xl font-bold z-10"
+        >
+            <img
+            src="{{ asset('images/icons/back.png') }}"
+            alt="戻る"
+            class="
+                flex
+                items-center
+                justify-center
+
+                w-14 h-14
+
+                rounded-full
+
+                hover:bg-white/20
+                hover:shadow-lg
+                hover:-translate-y-1
+                hover:scale-110
+
+                transition
+                duration-200
+                 "
+            >
         </a>
 
-        <h1 class="text-white text-2xl font-bold">
+        <h1 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold pointer-events-none">
             水族館一覧
         </h1>
-
-        <div class="w-6"></div>
 
     </div>
 
@@ -61,7 +81,7 @@
      <div class="flex justify-between items-center px-4 mt-4 mb-3">
 
      <p class="font-bold">
-         全 {{ count($aquariums) }} 件
+         全 {{ $aquariums->total() }} 件
      </p>
 
      </div>
@@ -118,6 +138,28 @@
     </a>
 
     @endforeach
+
+</div>
+<div class="mt-6">
+
+    <div class="text-center text-sm text-gray-500 mb-3">
+
+        全 {{ $aquariums->total() }} 件中
+
+        {{ $aquariums->firstItem() }}
+        ～
+
+        {{ $aquariums->lastItem() }}
+
+        件を表示
+
+    </div>
+
+    <div class="flex justify-center">
+
+        {{ $aquariums->links() }}
+
+    </div>
 
 </div>
 @include('components.bottom-nav')

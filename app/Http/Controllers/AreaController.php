@@ -17,12 +17,38 @@ class AreaController extends Controller
     }
     public function show(Area $area)
     {
-        $area->load('species');
+    $prevArea = Area::where(
+        'aquarium_id',
+        $area->aquarium_id
+    )
+    ->where(
+        'id',
+        '<',
+        $area->id
+    )
+    ->orderByDesc('id')
+    ->first();
 
-        return view(
-            'user.areas.show',
-            compact('area')
-        );
+    $nextArea = Area::where(
+        'aquarium_id',
+        $area->aquarium_id
+    )
+    ->where(
+        'id',
+        '>',
+        $area->id
+    )
+    ->orderBy('id')
+    ->first();
+
+    return view(
+        'user.areas.show',
+        compact(
+            'area',
+            'prevArea',
+            'nextArea'
+        )
+    );
     }
 
     public function species(Area $area)

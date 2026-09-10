@@ -55,7 +55,7 @@
 
         </div>
              <p class="text-sm text-gray-500 mt-2">
-               {{ $species->count() }}件
+               {{ $species->total() }}件
              </p>
 
     </div>
@@ -80,7 +80,7 @@
         transition
         duration-200
     "
->
+    >
 
             <img
                 src="{{ asset($animal->image_path) }}"
@@ -95,6 +95,28 @@
         </a>
 
     @endforeach
+
+</div>
+<div class="mt-6">
+
+    <div class="text-center text-sm text-gray-500 mb-3">
+
+        全 {{ $species->total() }} 件中
+
+        {{ $species->firstItem() }}
+        ～
+
+        {{ $species->lastItem() }}
+
+        件を表示
+
+    </div>
+
+    <div class="flex justify-center">
+
+        {{ $species->links() }}
+
+    </div>
 
 </div>
 

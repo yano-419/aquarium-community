@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>展示エリア生き物一覧</title>
+    <title>{{ $area->aquarium->name }} - {{ $area->name }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -41,11 +41,9 @@
 
     <div class="p-5">
 
-       <h2 class="text-xl font-bold mb-2">
-    {{ $area->aquarium->name }}の{{ $area->name }}の生き物
-</h2>
-
-        </div>
+        <h2 class="text-xl font-bold mb-2">
+            {{ $area->aquarium->name }}の{{ $area->name }}の生き物
+        </h2>
 
         <p class="font-bold mb-3">
             全{{ $area->species->count() }}種
@@ -53,24 +51,29 @@
 
         @forelse ($area->species as $animal)
 
-            <a href="{{ route('aquarium-species.show', $animal->id) }}"
-   class="
-        flex
-        gap-3
-        bg-white
-        rounded-xl
-        shadow
-        p-3
-        mb-3
-        cursor-pointer
+            <a href="{{ route('aquarium-species.show', [
+                    'aquariumSpecies' => $animal->id,
+                    'from' => 'area-species',
+                    'area' => $area->id
+                ]) }}"
+               class="
+                    flex
+                    gap-3
+                    bg-white
+                    rounded-xl
+                    shadow
+                    p-3
+                    mb-3
+                    cursor-pointer
 
-        hover:shadow-xl
-        hover:-translate-y-1
-        hover:scale-[1.02]
+                    hover:shadow-xl
+                    hover:-translate-y-1
+                    hover:scale-105
+                    active:scale-95
 
-        transition
-        duration-200
-   ">
+                    transition
+                    duration-200
+               ">
 
                 <img
                     src="{{ asset($animal->image_path) }}"

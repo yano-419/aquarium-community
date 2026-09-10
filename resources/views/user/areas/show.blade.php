@@ -49,7 +49,33 @@ class="text-white text-2xl font-bold">
         alt="{{ $area->name }}"
         class="w-full"
     />
+<div class="flex justify-between px-5 py-6">
 
+    @if($prevArea)
+
+        <a href="{{ route('areas.show', $prevArea->id) }}"
+            class="text-blue-500 font-semibold"
+        >
+            ← 前の展示エリア
+        </a>
+
+    @else
+
+        <div></div>
+
+    @endif
+
+    @if($nextArea)
+
+        <a href="{{ route('areas.show', $nextArea->id) }}"
+            class="text-blue-500 font-semibold"
+        >
+            次の展示エリア →
+        </a>
+
+    @endif
+
+</div>
     <div class="p-5">
 
         <h2 class="text-2xl font-bold">
@@ -79,12 +105,16 @@ class="text-white text-2xl font-bold">
                 @forelse ($area->species->take(3) as $species)
 
                     
-                    <a  href="{{ route('species.show', ['species' => $species->id, 'from' => 'area']) }}"
+                    <a  href="{{ route('aquarium-species.show', [
+                        'aquariumSpecies' => $species->id,
+                        'from' => 'area-species',
+                        'area' => $area->id
+                        ])}}"
                         class="
                             hover:shadow-xl
                             hover:-translate-y-1
-                            hover:scale-[1.03]
-                            active:scale-[0.98]
+                            hover:scale-105
+                            active:scale-95
                             transition
                             duration-200
                         "

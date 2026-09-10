@@ -23,9 +23,21 @@
         <div class="absolute inset-0 bg-black/15"></div>
 
         <div class="absolute inset-0 flex items-center">
-            
-            <a href="javascript:history.back()"
-                class="text-white text-2xl pl-4"
+
+            <a href="{{
+                request()->query('from') === 'area-species'
+                    ? route('areas.species', request('area'))
+                    : (
+                        request()->query('from') === 'aquarium-species'
+                            ? route('aquarium.species', request('aquarium'))
+                            : (
+                                request()->query('from') === 'aquarium-show'
+                                    ? route('aquariums.show', request('aquarium'))
+                                    : route('home')
+                            )
+                    )
+            }}"
+            class="text-white text-2xl pl-4"
             >
                 ←
             </a>
@@ -45,6 +57,44 @@
             alt="{{ $aquariumSpecies->name }}"
             class="w-full rounded-2xl shadow"
         >
+
+        <div class="flex justify-between px-5 py-6">
+
+            @if($prevSpecies)
+
+                <a href="{{ route('aquarium-species.show', [
+                    'aquariumSpecies' => $prevSpecies->id,
+                    'from' => request('from'),
+                    'area' => request('area'),
+                    'aquarium' => request('aquarium'),
+                ]) }}"
+                    class="text-blue-500 font-semibold"
+                >
+                    ← 前の生き物
+                </a>
+
+            @else
+
+                <div></div>
+
+            @endif
+
+            @if($nextSpecies)
+
+                <a href="{{ route('aquarium-species.show', [
+                    'aquariumSpecies' => $nextSpecies->id,
+                    'from' => request('from'),
+                    'area' => request('area'),
+                    'aquarium' => request('aquarium'),
+                ]) }}"
+                    class="text-blue-500 font-semibold"
+                >
+                    次の生き物 →
+                </a>
+
+            @endif
+
+        </div>
 
         <div class="bg-white rounded-2xl shadow mt-4 p-5">
 

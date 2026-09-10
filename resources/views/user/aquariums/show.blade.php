@@ -31,10 +31,30 @@
         : route('aquariums.index')
         }}"
         class="text-white text-2xl font-bold">
-        ←
+       <img
+            src="{{ asset('images/icons/back.png') }}"
+            alt="戻る"
+            class="
+                flex
+                items-center
+                justify-center
+
+                w-14 h-14
+
+                rounded-full
+
+                hover:bg-white/20
+                hover:shadow-lg
+                hover:-translate-y-1
+                hover:scale-110
+
+                transition
+                duration-200
+                 "
+            >
        </a>
 
-        <h1 class="text-white text-2xl font-bold">
+        <h1  class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold pointer-events-none">
             水族館詳細
         </h1>
 
@@ -116,8 +136,8 @@
         hover:bg-white
         hover:shadow-xl
         hover:-translate-y-1
-        hover:scale-[1.02]
-        active:scale-[0.98]
+        hover:scale-105
+        active:scale-95
 
         transition
         duration-200
@@ -168,7 +188,11 @@
 
       @forelse ($species as $item)
 
-   <a href="{{ route('aquarium-species.show', $item->id) }}"
+   <a href="{{ route('aquarium-species.show', [
+        'aquariumSpecies' => $item->id,
+        'from' => 'aquarium-show',
+        'aquarium' => $aquarium->id,
+    ]) }}"
    class="
         flex
         gap-3
@@ -180,8 +204,8 @@
         hover:bg-white
         hover:shadow-xl
         hover:-translate-y-1
-        hover:scale-[1.02]
-        active:scale-[0.98]
+        hover:scale-105
+        active:scale-95
 
         transition
         duration-200

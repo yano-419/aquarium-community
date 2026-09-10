@@ -36,6 +36,21 @@
             } else {
                 $backUrl = route('species.index');
             }
+
+            // 前後の生き物リンクに引き継ぐためのパラメータ
+            $navParams = [];
+
+            if (request()->query('from')) {
+                $navParams['from'] = request()->query('from');
+            }
+
+            if (request()->query('aquarium')) {
+                $navParams['aquarium'] = request()->query('aquarium');
+            }
+
+            if (request()->query('area')) {
+                $navParams['area'] = request()->query('area');
+            }
         @endphp
 
         <div class="absolute inset-0 flex items-center">
@@ -62,7 +77,31 @@
             alt="{{ $species->name }}"
             class="w-full rounded-2xl shadow"
         >
+<div class="flex justify-between mt-6">
 
+    @if($prevSpecies)
+
+        <a href="{{ route('species.show', array_merge(['species' => $prevSpecies->id], $navParams)) }}"
+            class="text-blue-500">
+            ← 前の生き物
+        </a>
+
+    @else
+
+        <div></div>
+
+    @endif
+
+    @if($nextSpecies)
+
+        <a href="{{ route('species.show', array_merge(['species' => $nextSpecies->id], $navParams)) }}"
+            class="text-blue-500">
+            次の生き物 →
+        </a>
+
+    @endif
+
+</div>
         <!-- 詳細情報 -->
         <div class="bg-white rounded-2xl shadow mt-4 p-5">
 
@@ -179,8 +218,8 @@
                             hover:bg-white
                             hover:shadow-xl
                             hover:-translate-y-1
-                            hover:scale-[1.02]
-                            active:scale-[0.98]
+                            hover:scale-105
+                            active:scale-95
 
                             transition
                             duration-200
@@ -248,8 +287,8 @@
                             hover:bg-white
                             hover:shadow-xl
                             hover:-translate-y-1
-                            hover:scale-[1.02]
-                            active:scale-[0.98]
+                            hover:scale-105
+                            active:scale-95
 
                             transition
                             duration-200

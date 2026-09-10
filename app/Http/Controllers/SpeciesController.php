@@ -21,13 +21,12 @@ class SpeciesController extends Controller
 
     }
 
-    $species = $species->get();
-
+    $species = $species->paginate(12);
     return view('user.species.index', compact('species'));
     }
 
     public function show(Species $species)
-    {
+{
     $areas = Area::whereHas(
         'species',
         function ($query) use ($species) {
@@ -43,15 +42,53 @@ class SpeciesController extends Controller
     ->take(2)
     ->get();
 
+    if (request('from') === 'favorites') {
+
+    $favoriteIds = auth()->user()
+        ->favorites()
+        ->pluck('species_id')
+        ->toArray();
+
+    $prevSpecies = Species::whereIn('id', $favoriteIds)
+        ->where('id', '<', $species->id)
+        ->orderByDesc('id')
+        ->first();
+
+    $nextSpecies = Species::whereIn('id', $favoriteIds)
+        ->where('id', '>', $species->id)
+        ->orderBy('id')
+        ->first();
+
+} else {
+
+    $prevSpecies = Species::where(
+        'id',
+        '<',
+        $species->id
+    )
+    ->orderByDesc('id')
+    ->first();
+
+    $nextSpecies = Species::where(
+        'id',
+        '>',
+        $species->id
+    )
+    ->orderBy('id')
+    ->first();
+
+}
+
     return view(
         'user.species.show',
         compact(
             'species',
-            'areas'
+            'areas',
+            'prevSpecies',
+            'nextSpecies'
         )
     );
-    }
-
+}
     public function aquariums(Species $species)
     { 
     $species->load('aquariums');

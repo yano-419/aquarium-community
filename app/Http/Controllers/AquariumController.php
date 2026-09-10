@@ -36,7 +36,7 @@ class AquariumController extends Controller
         });
     }
 
-    $aquariums = $aquariums->get();
+    $aquariums = $aquariums->paginate(10);
 
     return view(
     'user.aquariums.index',
@@ -56,12 +56,30 @@ class AquariumController extends Controller
         ->take(3)
         ->get();
 
+    $prevAquarium = Aquarium::where(
+        'id',
+        '<',
+        $aquarium->id
+    )
+    ->orderByDesc('id')
+    ->first();
+
+    $nextAquarium = Aquarium::where(
+        'id',
+        '>',
+        $aquarium->id
+    )
+    ->orderBy('id')
+    ->first();
+
     return view(
         'user.aquariums.show',
         compact(
             'aquarium',
             'areas',
-            'species'
+            'species',
+            'prevAquarium',
+            'nextAquarium'
         )
     );
     }
