@@ -57,10 +57,30 @@
 
             <a href="{{ $backUrl }}"
                class="text-white text-2xl pl-4">
-                ←
+                <img
+            src="{{ asset('images/icons/back.png') }}"
+            alt="戻る"
+            class="
+                flex
+                items-center
+                justify-center
+
+                w-14 h-14
+
+                rounded-full
+
+                hover:bg-white/20
+                hover:shadow-lg
+                hover:-translate-y-1
+                hover:scale-110
+
+                transition
+                duration-200
+                 "
+            >
             </a>
 
-            <h1 class="text-white text-2xl font-bold mx-auto pr-10">
+            <h1 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold pointer-events-none">
                 生き物詳細
             </h1>
 
@@ -77,31 +97,79 @@
             alt="{{ $species->name }}"
             class="w-full rounded-2xl shadow"
         >
-<div class="flex justify-between mt-6">
 
-    @if($prevSpecies)
+        <div class="flex justify-between gap-3 mt-6">
 
-        <a href="{{ route('species.show', array_merge(['species' => $prevSpecies->id], $navParams)) }}"
-            class="text-blue-500">
-            ← 前の生き物
-        </a>
+            @if($prevSpecies)
 
-    @else
+                
+                <a  href="{{ route('species.show', array_merge(['species' => $prevSpecies->id], $navParams)) }}"
+                    class="
+                        flex-1
+                        text-center
+                        bg-white
+                        text-blue-600
+                        font-semibold
+                        py-3
+                        rounded-xl
+                        shadow
 
-        <div></div>
+                        hover:bg-blue-50
+                        hover:shadow-xl
+                        hover:-translate-y-1
+                        hover:scale-105
 
-    @endif
+                        active:scale-95
 
-    @if($nextSpecies)
+                        transition
+                        duration-200
+                    "
+                >
+                    ◀ 前の生き物
+                </a>
 
-        <a href="{{ route('species.show', array_merge(['species' => $nextSpecies->id], $navParams)) }}"
-            class="text-blue-500">
-            次の生き物 →
-        </a>
+            @else
 
-    @endif
+                <div class="flex-1"></div>
 
-</div>
+            @endif
+
+            @if($nextSpecies)
+
+                
+                <a  href="{{ route('species.show', array_merge(['species' => $nextSpecies->id], $navParams)) }}"
+                    class="
+                        flex-1
+                        text-center
+                        bg-blue-500
+                        text-white
+                        font-semibold
+                        py-3
+                        rounded-xl
+                        shadow
+
+                        hover:bg-blue-600
+                        hover:shadow-xl
+                        hover:-translate-y-1
+                        hover:scale-105
+
+                        active:scale-95
+
+                        transition
+                        duration-200
+                    "
+                >
+                    次の生き物 ▶
+                </a>
+
+            @else
+
+                <div class="flex-1"></div>
+
+            @endif
+
+        </div>
+
         <!-- 詳細情報 -->
         <div class="bg-white rounded-2xl shadow mt-4 p-5">
 

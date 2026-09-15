@@ -66,7 +66,7 @@
     <div class="mt-6 px-3">
         <div class="flex justify-between items-center mb-3">
             <h2 class="font-bold text-lg">🐟 おすすめの生き物</h2>
-            <a href="{{ route('species.index') }}" class="text-blue-500 text-sm">もっと見る </a>
+            <a href="{{ route('species.index') }}" class="text-blue-500 text-sm">もっと見る > </a>
         </div>
 
         <div class="flex gap-3 overflow-x-auto pb-2">

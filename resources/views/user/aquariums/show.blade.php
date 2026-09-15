@@ -104,6 +104,79 @@
             </a>
         </div>
 
+        <div class="flex justify-between gap-3 mt-6">
+
+            @if($prevAquarium)
+
+                
+                <a  href="{{ route('aquariums.show', $prevAquarium->id) }}"
+                    class="
+                        flex-1
+                        text-center
+                        bg-white
+                        text-blue-600
+                        font-semibold
+                        py-2
+                        rounded-xl
+                        shadow
+                        border
+
+                        hover:bg-blue-50
+                        hover:shadow-xl
+                        hover:-translate-y-1
+                        hover:scale-105
+
+                        active:scale-95
+
+                        transition
+                        duration-200
+                    "
+                >
+                    ◀ 前の水族館
+                </a>
+
+            @else
+
+                <div class="flex-1"></div>
+
+            @endif
+
+            @if($nextAquarium)
+
+                
+                <a  href="{{ route('aquariums.show', $nextAquarium->id) }}"
+                    class="
+                        flex-1
+                        text-center
+                        bg-blue-500
+                        text-white
+                        font-semibold
+                        py-2
+                        rounded-xl
+                        shadow
+
+                        hover:bg-blue-600
+                        hover:shadow-xl
+                        hover:-translate-y-1
+                        hover:scale-105
+
+                        active:scale-95
+
+                        transition
+                        duration-200
+                    "
+                >
+                    次の水族館 ▶
+                </a>
+
+            @else
+
+                <div class="flex-1"></div>
+
+            @endif
+
+        </div>
+
         <div class="flex justify-between items-center mt-6 mb-3">
 
     <h2 class="font-bold text-lg">

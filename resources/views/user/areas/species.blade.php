@@ -26,10 +26,30 @@
 
             <a href="{{ route('areas.show', $area->id) }}"
                class="text-white text-2xl font-bold">
-                ←
+                <img
+            src="{{ asset('images/icons/back.png') }}"
+            alt="戻る"
+            class="
+                flex
+                items-center
+                justify-center
+
+                w-14 h-14
+
+                rounded-full
+
+                hover:bg-white/20
+                hover:shadow-lg
+                hover:-translate-y-1
+                hover:scale-110
+
+                transition
+                duration-200
+                 "
+            >
             </a>
 
-            <h1 class="text-white text-2xl font-bold">
+            <h1 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold pointer-events-none">
                 生き物一覧
             </h1>
 
