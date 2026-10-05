@@ -65,7 +65,7 @@
         <a  href="{{ route('admin.staff.index') }}"
             class="
                 flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
-                {{ request()->routeIs('admin.staff.*')
+                {{ request()->routeIs('admin.staff.index', 'admin.staff.create', 'admin.staff.edit')
                     ? 'bg-sky-500'
                     : 'hover:bg-sky-500'
                 }}
@@ -78,6 +78,23 @@
             >
 
             <span>担当者管理</span>
+        </a>
+
+        <a  href="{{ route('admin.staff.requests') }}"
+            class="
+                flex items-center gap-3 px-5 py-4 rounded-xl text-lg font-semibold transition
+                {{ request()->routeIs('admin.staff.requests', 'admin.staff.requests.approve')
+                    ? 'bg-sky-500'
+                    : 'hover:bg-sky-500'
+                }}
+            "
+        >
+            <img
+                src="{{ asset('images/icons/manage.png') }}"
+                alt=""
+                class="h-8 w-8 object-contain"
+            >
+            <span>担当者申請</span>
         </a>
 
         <!-- 図鑑管理 -->

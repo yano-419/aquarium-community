@@ -30,13 +30,14 @@ class AuthenticatedSessionController extends Controller
 
     $user = $request->user();
 
-    if ($user->role === 'admin') {
-        return redirect()->route('admin.dashboard');
-     }
+    if ($user->role !== 'user') {
 
-    if ($user->role === 'staff') {
-        return redirect()->route('staff.dashboard');
-     }
+        Auth::logout();
+
+        return back()->withErrors([
+            'email' => '一般ユーザーアカウントではありません。',
+        ]);
+    }
 
     return redirect()->route('home');
     }
@@ -44,14 +45,23 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+   public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+    $user = Auth::user();
 
-        $request->session()->invalidate();
+    Auth::guard('web')->logout();
 
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
 
-        return redirect()->route('login');
+    $request->session()->regenerateToken();
+
+    if (
+        $user &&
+        in_array($user->role, ['admin', 'staff'])
+    ) {
+        return redirect()->route('select.login');
+    }
+
+    return redirect()->route('login');
     }
 }

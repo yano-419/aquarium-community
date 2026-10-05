@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\StaffRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\StaffRequestController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminUnregisteredSpeciesController;
@@ -11,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\StaffLoginController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AquariumController;
@@ -24,8 +29,31 @@ use App\Http\Controllers\StaffAquariumSpeciesController;
 use App\Http\Controllers\StaffProfileController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.select-login');
+})->name('select.login');
+
+Route::get('/staff/login', function () {
+    return view('auth.staff-login');
+})->name('staff.login');
+
+Route::get('/admin/login', function () {
+    return view('auth.admin-login');
+})->name('admin.login');
+
+Route::post('/admin/login', [
+    App\Http\Controllers\Auth\AdminLoginController::class,
+    'store'
+])->name('admin.login.store');
+
+Route::get(
+    '/staff/request',
+    [StaffRequestController::class, 'create']
+)->name('staff.request.create');
+
+Route::post(
+    '/staff/request',
+    [StaffRequestController::class, 'store']
+)->name('staff.request.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -113,9 +141,6 @@ Route::delete('/species/{species}/favorite', [FavoriteController::class, 'destro
 Route::get('/areas/{area}', [AreaController::class, 'show'])
     ->name('areas.show');
 
-Route::get('/areas/{area}', [AreaController::class, 'show'])
-    ->name('areas.show');
-
 Route::get(
     '/aquariums/{aquarium}/areas',
     [AreaController::class, 'index']
@@ -154,6 +179,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // 水族館担当者
+
+Route::post('/staff/login', [
+    StaffLoginController::class,
+    'store'
+])->name('staff.login.store');
+
 Route::middleware(['auth', 'role:staff'])
     ->prefix('staff')
     ->name('staff.')
@@ -313,6 +344,15 @@ Route::get(
     [AdminProfileController::class, 'show']
 )->name('profile.show');
 
+Route::get(
+    '/staff-requests',
+    [AdminStaffController::class, 'requests']
+)->name('staff.requests');
+
+Route::post(
+    '/staff-requests/{staffRequest}/approve',
+    [AdminStaffController::class, 'approve']
+)->name('staff.requests.approve');
 });
 
 require __DIR__.'/auth.php';

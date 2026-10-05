@@ -57,7 +57,7 @@ class PostController extends Controller
     $post->delete();
 
     return redirect()
-        ->route('user.posts.index')
+        ->route('mypage.posts')
         ->with('success', '投稿を削除しました');
     }
 

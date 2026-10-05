@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StaffRequest;
 use App\Models\User;
 use App\Models\Aquarium;
 use App\Models\AquariumStaff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AdminStaffController extends Controller
 {
@@ -166,4 +169,77 @@ class AdminStaffController extends Controller
             '担当者を削除しました'
         );
     }
+    public function requests()
+{
+    $requests = StaffRequest::where(
+        'status',
+        'pending'
+    )->get();
+
+    $aquariums = Aquarium::orderBy('name')
+        ->get();
+
+    return view(
+        'admin.staff-requests',
+        compact(
+            'requests',
+            'aquariums'
+        )
+    );
+}
+
+public function approve(
+    StaffRequest $staffRequest
+)
+{
+    DB::transaction(function () use ($staffRequest) {
+        $staffRequest = StaffRequest::query()
+            ->lockForUpdate()
+            ->findOrFail($staffRequest->id);
+
+        if ($staffRequest->status !== 'pending') {
+            throw ValidationException::withMessages([
+                'request' => 'この申請はすでに処理されています。',
+            ]);
+        }
+
+        $aquarium = Aquarium::where(
+            'name',
+            $staffRequest->aquarium_name
+        )->first();
+
+        if (!$aquarium) {
+            throw ValidationException::withMessages([
+                'aquarium_name' => '申請された水族館が見つかりません。水族館管理を確認してください。',
+            ]);
+        }
+
+        if (User::where('email', $staffRequest->email)->exists()) {
+            throw ValidationException::withMessages([
+                'email' => 'このメールアドレスはすでに登録されています。',
+            ]);
+        }
+
+        $user = User::create([
+            'name' => $staffRequest->name,
+            'email' => $staffRequest->email,
+            'password' => $staffRequest->password,
+            'role' => 'staff',
+        ]);
+
+        AquariumStaff::create([
+            'aquarium_id' => $aquarium->id,
+            'user_id' => $user->id,
+        ]);
+
+        $staffRequest->update([
+            'status' => 'approved',
+        ]);
+    });
+
+    return back()->with(
+        'success',
+        '担当者を承認しました。'
+    );
+}
 }
