@@ -65,7 +65,7 @@
     <!-- おすすめの生き物 -->
     <div class="mt-6 px-3">
         <div class="flex justify-between items-center mb-3">
-            <h2 class="font-bold text-lg">🐟 おすすめの生き物</h2>
+            <h2 class="font-bold text-lg">🐟 生き物</h2>
             <a href="{{ route('species.index') }}" class="text-blue-500 text-sm">もっと見る > </a>
         </div>
 
@@ -101,7 +101,7 @@
 
     <div class="flex justify-between items-center mb-3">
         <h2 class="font-bold text-lg">
-            ⭐ 人気の水族館
+            ⭐ 水族館
         </h2>
 
        <a href="{{ route('aquariums.index') }}" class="text-blue-500 text-sm">
