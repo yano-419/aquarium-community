@@ -89,6 +89,68 @@
 
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-10">
+
+            <a
+                href="{{ route('staff.areas.index') }}"
+                class="
+                    bg-blue-50
+                    border border-blue-100
+                    rounded-3xl
+                    shadow-lg
+                    p-10
+                    text-center
+                    hover:bg-blue-100
+                    hover:scale-105
+                    transition
+                "
+            >
+
+                <div class="w-20 h-20 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center">
+                    <img
+                        src="{{ asset('images/icons/area-manage.png') }}"
+                        alt="展示エリア管理"
+                        class="w-11 h-11 object-contain"
+                    >
+                </div>
+
+                <h3 class="text-2xl font-bold text-blue-700">
+                    展示エリア管理
+                </h3>
+
+            </a>
+
+            <a
+                href="{{ route('staff.species.index') }}"
+                class="
+                    bg-orange-50
+                    border border-orange-100
+                    rounded-3xl
+                    shadow-lg
+                    p-10
+                    text-center
+                    hover:bg-orange-100
+                    hover:scale-105
+                    transition
+                "
+            >
+
+                <div class="w-20 h-20 mx-auto mb-4 bg-orange-500 rounded-full flex items-center justify-center">
+                    <img
+                        src="{{ asset('images/icons/species-manage.png') }}"
+                        alt="生き物管理"
+                        class="w-11 h-11 object-contain"
+                    >
+                </div>
+
+                <h3 class="text-2xl font-bold text-orange-700">
+                    生き物管理
+                </h3>
+
+            </a>
+
+        </div>
+
     </main>
 
     <!-- 右側情報 -->

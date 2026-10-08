@@ -90,8 +90,8 @@
             "
         >
             <img
-                src="{{ asset('images/icons/manage.png') }}"
-                alt=""
+                src="{{ asset('images/icons/staff-requests.png') }}"
+                alt="担当者申請"
                 class="h-8 w-8 object-contain"
             >
             <span>担当者申請</span>
